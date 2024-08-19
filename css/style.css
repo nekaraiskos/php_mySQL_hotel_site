@@ -601,60 +601,60 @@ button {
 /** end specialOffers  section **/
 
 
-/** blog section **/
+/** services section **/
 
-.blog {
-     background: url(../images/blog_bg.jpg);
+.services {
+     background: url(../images/services_bg.jpg);
      background-repeat: no-repeat;
      background-size: 100% 100%;
      padding: 60px 0 30px 0;
      margin-top: 60px;
 }
 
-.blog .titlepage {
+.services .titlepage {
      text-align: center;
 }
 
-.blog .titlepage h2 {
+.services .titlepage h2 {
      color: #fff;
 }
 
-.blog .titlepage p {
+.services .titlepage p {
      color: #fff;
      font-size: 17px;
      margin-top: 20px;
 }
 
-.blog .blog_box {
+.services .services_box {
      text-align: left;
      background-color: #fff;
      margin-bottom: 30px;
      transition: ease-in all 0.5s;
 }
 
-.blog .blog_box .blog_img {
+.services .services_box .services_img {
      overflow: hidden;
 }
 
-.blog .blog_box .blog_img figure {
+.services .services_box .services_img figure {
      margin: 0;
 }
 
-.blog .blog_box .blog_img figure img {
+.services .services_box .services_img figure img {
      width: 100%;
      transition: all .5s;
 }
 
-.blog .blog_box .blog_img figure img:hover {
+.services .services_box .services_img figure img:hover {
      transform: scale(1.2);
 }
 
-.blog .blog_box .blog_room {
+.services .services_box .services_room {
      padding: 33px 30px;
      text-align: left;
 }
 
-.blog .blog_box .blog_room h3 {
+.services .services_box .services_room h3 {
      color: #121212;
      font-size: 25px;
      line-height: 20px;
@@ -664,7 +664,7 @@ button {
      margin: auto;
 }
 
-.blog .blog_box .blog_room span {
+.services .services_box .services_room span {
      font-size: 15px;
      color: #ff0909;
      font-weight: bold;
@@ -672,13 +672,13 @@ button {
      display: block;
 }
 
-.blog .blog_box .blog_room p {
+.services .services_box .services_room p {
      font-size: 14px;
      line-height: 20px;
 }
 
 
-/** end blog section **/
+/** end services section **/
 
 
 /** contact section **/
@@ -944,6 +944,6 @@ ul.social_icon li a:hover {
      padding-top: 90px;
 }
 
-.inner_page .blog {
+.inner_page .services {
      margin-top: 90px;
 }

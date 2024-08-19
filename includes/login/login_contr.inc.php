@@ -12,17 +12,8 @@ function is_username_wrong(bool|array $results) {
     }
 }
 
-function is_password_wrong(string $pwd, string $hashedPwd, $usertype) {
-    if($usertype === "user") {
-        return !password_verify($pwd, $hashedPwd);    
-    }
-    // return !password_verify($pwd, $hashedPwd);
-    else {
-        if($pwd == $hashedPwd) {
-            return false;
-        }
-        else return true;
-    }
+function is_password_wrong(string $pwd, string $hashedPwd) {
+    return !password_verify($pwd, $hashedPwd);
 }
 
 function is_input_empty(string $username, string $pwd) {
