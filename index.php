@@ -4,6 +4,7 @@ require_once 'includes/signup/signup_view.inc.php';
 require_once 'includes/login/login_view.inc.php';
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,35 +58,20 @@ require_once 'includes/login/login_view.inc.php';
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <h3>User Login</h3>
+                <h3>Login</h3>
                 <form action="includes/login/login.inc.php" method="post">
-                <div class="form-group">
-                    <input type="text" name="username" class="form-control" placeholder="Username">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="pwd" class="form-control" placeholder="Password">
-                </div>
-                <input type="hidden" name="user_type" value="user">
-                <button class="btn btn-primary" type="submit" value="login">Login</button>
-            </form>
-        </div>
-        <!-- <div class="row"> -->
-            <div class="col-md-6">
-            <h3>Admin Login</h3>
-            <form action="includes/login/login.inc.php" method="post">
-                <div class="form-group">
-                    <input type="text" name="username" class="form-control" placeholder="Username">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="pwd" class="form-control" placeholder="Password">
-                </div>
-                <input type="hidden" name="user_type" value="admin">
-                <button class="btn btn-danger" type="submit" value="login">Login</button>
-            </form>
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="pwd" class="form-control" placeholder="Password">
+                    </div>
+                    <button class="btn btn-primary">Login</button>
+                </form>
+
+                <?php check_login_errors(); ?>
             </div>
-        <!-- </div> -->
-            <?php check_login_errors()?>
-            <br>
+
             <div class="col-md-6">
                 <h3>Signup</h3>
                 <form action="includes/signup/signup.inc.php" method="post">
