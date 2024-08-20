@@ -1,3 +1,8 @@
+<?php
+   require_once 'includes/config_session.inc.php';
+   require_once 'includes/login/login_view.inc.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +54,7 @@
                   <div class="full">
                      <div class="center-desk">
                         <div class="logo">
-                           <a href="main_page.html"><img src="images/logo.png" alt="#" /></a>
+                           <a href="main_page.php"><img src="images/logo.png" alt="#" /></a>
                         </div>
                      </div>
                   </div>
@@ -64,22 +69,22 @@
                      <div class="collapse navbar-collapse" id="navbarsExample04">
                         <ul class="navbar-nav mr-auto">
                            <li class="nav-item active">
-                              <a class="nav-link" href="main_page.html">Home</a>
+                              <a class="nav-link" href="main_page.php">Home</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="about.html">About</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="room.html">Our room</a>
+                              <a class="nav-link" href="room.html">Our&nbsp;rooms</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="specialOffers.html">Special Offers</a>
+                              <a class="nav-link" href="specialOffers.html">Special&nbsp;Offers</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="blog.html">Blog</a>
+                              <a class="nav-link" href="services.html">Services</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="contact.html">Contact Us</a>
+                              <a class="nav-link" href="contact.html">Contact&nbsp;Us</a>
                            </li>
                         </ul>
                         <form class="form-inline" action="includes/logout/logout.inc.php" method="post">
@@ -131,20 +136,22 @@
                <div class="col-md-5">
                   <div class="book_room">
                      <h1>Book a Room Online</h1>
-                     <form class="book_now">
+                     <form class="book_now" action="includes/book_now/book_now.inc.php" method="post">
                         <div class="row">
                            <div class="col-md-12">
-                              <span>Arrival</span>
-                              <img class="date_cua" src="images/date.png">
-                              <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="dd/mm/yyyy">
+                              <label for="arrival">Arrival</label>
+                              <img class="date_cua" src="images/date.png" alt="Date Icon">
+                              <input id="arrival" class="online_book" type="date" name="arrival" required>
                            </div>
                            <div class="col-md-12">
-                              <span>Departure</span>
-                              <img class="date_cua" src="images/date.png">
-                              <input class="online_book" placeholder="dd/mm/yyyy" type="date" name="dd/mm/yyyy">
+                              <label for="departure">Departure</label>
+                              <img class="date_cua" src="images/date.png" alt="Date Icon">
+                              <input id="departure" class="online_book" type="date" name="departure" required>
                            </div>
                            <div class="col-md-12">
-                              <button class="book_btn">Book Now</button>
+                              <button class="book_btn" type="submit">Book Now</button>
+                           </div>
+                           <div class="col-md-12">                              
                            </div>
                         </div>
                      </form>
@@ -153,6 +160,7 @@
             </div>
          </div>
       </div>
+
    </section>
    <!-- end banner -->
    <!-- about -->
@@ -184,7 +192,7 @@
          <div class="row">
             <div class="col-md-12">
                <div class="titlepage">
-                  <h2>Our Room</h2>
+                  <h2>Our Rooms</h2>
                   <p>Lorem Ipsum available, but the majority have suffered </p>
                </div>
             </div>
@@ -315,24 +323,24 @@
       </div>
    </div>
    <!-- end specialOffers -->
-   <!-- blog -->
-   <div class="blog">
+   <!-- services -->
+   <div class="services">
       <div class="container">
          <div class="row">
             <div class="col-md-12">
                <div class="titlepage">
-                  <h2>Blog</h2>
+                  <h2>Services</h2>
                   <p>Lorem Ipsum available, but the majority have suffered </p>
                </div>
             </div>
          </div>
          <div class="row">
             <div class="col-md-4">
-               <div class="blog_box">
-                  <div class="blog_img">
-                     <figure><img src="images/blog1.jpg" alt="#" /></figure>
+               <div class="services_box">
+                  <div class="services_img">
+                     <figure><img src="images/services1.jpg" alt="#" /></figure>
                   </div>
-                  <div class="blog_room">
+                  <div class="services_room">
                      <h3>Bed Room</h3>
                      <span>The standard chunk </span>
                      <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything
@@ -341,11 +349,11 @@
                </div>
             </div>
             <div class="col-md-4">
-               <div class="blog_box">
-                  <div class="blog_img">
-                     <figure><img src="images/blog2.jpg" alt="#" /></figure>
+               <div class="services_box">
+                  <div class="services_img">
+                     <figure><img src="images/services2.jpg" alt="#" /></figure>
                   </div>
-                  <div class="blog_room">
+                  <div class="services_room">
                      <h3>Bed Room</h3>
                      <span>The standard chunk </span>
                      <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything
@@ -354,11 +362,11 @@
                </div>
             </div>
             <div class="col-md-4">
-               <div class="blog_box">
-                  <div class="blog_img">
-                     <figure><img src="images/blog3.jpg" alt="#" /></figure>
+               <div class="services_box">
+                  <div class="services_img">
+                     <figure><img src="images/services3.jpg" alt="#" /></figure>
                   </div>
-                  <div class="blog_room">
+                  <div class="services_room">
                      <h3>Bed Room</h3>
                      <span>The standard chunk </span>
                      <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything
@@ -369,7 +377,7 @@
          </div>
       </div>
    </div>
-   <!-- end blog -->
+   <!-- end services -->
    <!--  contact -->
    <div class="contact">
       <div class="container">
@@ -434,9 +442,9 @@
                   <ul class="link_menu">
                      <li class="active"><a href="#">Home</a></li>
                      <li><a href="about.html"> about</a></li>
-                     <li><a href="room.html">Our Room</a></li>
+                     <li><a href="room.html">Our Rooms</a></li>
                      <li><a href="specialOffers.html">Special Offers</a></li>
-                     <li><a href="blog.html">Blog</a></li>
+                     <li><a href="services.html">Services</a></li>
                      <li><a href="contact.html">Contact Us</a></li>
                   </ul>
                </div>
