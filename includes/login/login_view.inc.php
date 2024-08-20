@@ -26,7 +26,13 @@ function check_login_errors() {
 
     }
     else if (isset($_GET["login_user"]) && $_GET["login_user"] == "success") {
-        header("Location: main_page.php");        
-        exit(); 
+        echo "<br>";
+        echo "<p>Login Success!</p>";
+        header("Location: main_page.html");      
     }    
+    else if (isset($_GET["login_admin"]) && $_GET["login_admin"] == "success") {
+        echo "<br>";
+        echo "<p>Login Success!</p>";
+        header("Location: admin_main_page.html");
+    }
 }
