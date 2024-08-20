@@ -1,9 +1,18 @@
 <?php
 session_start(); // Start session to access session variables
 
-require_once 'includes/book_now/book_now_view.inc.php';
+require_once "includes/dbh.inc.php";     // Connect to the database.        
+require_once "includes/book_now/book_now_view.inc.php";
+require_once "includes/book_now/book_now_model.inc.php";
 
+$arrival = isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : 'Not provided';
+$departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : 'Not provided';
+$room_id = isset($_GET['room_id']) ? htmlspecialchars($_GET['room_id']) : 'Not provided';
+$user_id = $_SESSION["user_id"];
+
+$curr_room = get_room($pdo, $room_id);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -97,10 +106,10 @@ require_once 'includes/book_now/book_now_view.inc.php';
     
     <div class="back_re">
         <div class="container">
-            <div class="row">σ
+            <div class="row">
                 <div class="col-md-12">
                     <div class="title">
-                        <h2>All Available Rooms for Your Selected Dates</h2>                                                
+                        <h2>Make Your Reservation Now</h2>                                                
                     </div>
                 </div>
             </div>
@@ -109,18 +118,9 @@ require_once 'includes/book_now/book_now_view.inc.php';
     
     <!-- Booking Details -->
     <div class="our_room">
-        <div class="container">
+        <div class="container">            
             <div class="row">
-                <div class="col-md-12">
-                    <div class="titlepage">
-                        <p>Arrival Date: <?php echo $arrival; ?></p>
-                        <p>Departure Date: <?php echo $departure; ?></p>
-                        <div style="height: 40px;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <?php output_available_rooms(); ?>
+                <?php output_room_info($curr_room, $arrival, $departure, $user_id); ?>
             </div>
         </div>
     </div>
@@ -192,3 +192,7 @@ require_once 'includes/book_now/book_now_view.inc.php';
 </body>
 
 </html>
+
+
+
+

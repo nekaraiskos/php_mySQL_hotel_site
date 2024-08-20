@@ -947,3 +947,64 @@ ul.social_icon li a:hover {
 .inner_page .services {
      margin-top: 90px;
 }
+
+.room-details {
+     display: flex;
+     align-items: flex-start;
+     /* Aligns the items at the top */
+     justify-content: flex-start;
+     /* Aligns items horizontally */
+     max-width: 100%;
+     /* Ensures the layout is responsive */
+     padding: 20px;
+     border: 1px solid #ddd;
+     border-radius: 10px;
+     background-color: #f9f9f9;
+     gap: 20px;
+     /* Space between the image and text */
+}
+
+.room-image-container {
+     flex: 1 1 40%;
+     /* Flexibly allows the image to take up 40% of the container */
+}
+
+.room-image {
+     width: 100%;
+     /* Ensures the image uses the full width of its container */
+     height: auto;
+     /* Maintains aspect ratio */
+     border-radius: 10px;
+}
+
+.room-info {
+     flex: 1 1 60%;
+     /* Flexibly allows the text to take up 60% of the container */
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+}
+
+.room-info h3 {
+     margin: 10px 0;
+     /* Adds space between the lines of text */
+     color: #333;
+}
+
+.room-info p {
+     margin: 8px 0;
+     color: #555;
+     line-height: 1.4;
+}
+
+.hot-tub {
+     color: #d9534f;
+     /* Bootstrap danger color */
+}
+
+.price-per-night {
+     font-weight: bold;
+     font-size: 1.2em;
+     color: #5cb85c;
+     /* Bootstrap success color */
+}

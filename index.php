@@ -4,6 +4,7 @@ require_once 'includes/signup/signup_view.inc.php';
 require_once 'includes/login/login_view.inc.php';
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

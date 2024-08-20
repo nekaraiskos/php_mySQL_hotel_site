@@ -1,3 +1,8 @@
+<?php
+   require_once 'includes/config_session.inc.php';
+   require_once 'includes/login/login_view.inc.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +54,7 @@
                   <div class="full">
                      <div class="center-desk">
                         <div class="logo">
-                           <a href="main_page.html"><img src="images/logo.png" alt="#" /></a>
+                           <a href="main_page.php"><img src="images/logo.png" alt="#" /></a>
                         </div>
                      </div>
                   </div>
@@ -64,7 +69,7 @@
                      <div class="collapse navbar-collapse" id="navbarsExample04">
                         <ul class="navbar-nav mr-auto">
                            <li class="nav-item active">
-                              <a class="nav-link" href="main_page.html">Home</a>
+                              <a class="nav-link" href="main_page.php">Home</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="about.html">About</a>
@@ -145,6 +150,8 @@
                            </div>
                            <div class="col-md-12">
                               <button class="book_btn" type="submit">Book Now</button>
+                           </div>
+                           <div class="col-md-12">                              
                            </div>
                         </div>
                      </form>

@@ -5,6 +5,7 @@ require_once 'includes/book_now/book_now_view.inc.php';
 
 $arrival = isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : 'Not provided';
 $departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : 'Not provided';
+$user_id = $_SESSION["user_id"];
 
 ?>
 
@@ -87,7 +88,7 @@ $departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : 
                                     <li class="nav-item">
                                         <a class="nav-link" href="contact.html">Contact Us</a>
                                     </li>
-                                </ul>
+                                </ul>                                
                             </div>
                         </nav>
                     </div>
@@ -117,13 +118,13 @@ $departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : 
                 <div class="col-md-12">
                     <div class="titlepage">
                         <p>Arrival Date: <?php echo $arrival; ?></p>
-                        <p>Departure Date: <?php echo $departure; ?></p>
+                        <p>Departure Date: <?php echo $departure; ?></p>                        
                         <div style="height: 40px;"></div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <?php output_available_rooms(); ?>
+                <?php output_available_rooms($arrival, $departure); ?>
             </div>
         </div>
     </div>

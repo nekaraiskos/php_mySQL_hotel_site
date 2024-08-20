@@ -41,4 +41,32 @@ function get_available_rooms(object $pdo, string $arrival, string $departure) {
     return $availableRooms;
 }
 
+function get_room($pdo, $room_id) {
+    $query = "SELECT * FROM room WHERE RoomID = :room_id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':room_id', $room_id, PDO::PARAM_INT);    
+    $stmt->execute();
+    
+    $curr_room = $stmt->fetch(PDO::FETCH_ASSOC);   
+    return $curr_room;
+}
 
+function make_simple_resrv($pdo, $user_id, $room_id, $arrival, $departure, $totalCost) {
+    // Insert the reservation into the makes_simple_resrv table
+    $query = "INSERT INTO makes_simple_resrv (FullPrice, CheckIn, CheckOut, FK1_CustomerID, FK2_RoomID)    
+            VALUES (:fullPrice, :checkIn, :checkOut, :fK1_CustomerID, :fK2_RoomID);";
+
+    $stmt = $pdo->prepare($query);    
+    $stmt->bindParam(':fullPrice', $totalCost);
+    $stmt->bindParam(':checkIn', $arrival);
+    $stmt->bindParam(':checkOut', $departure);
+    $stmt->bindParam(':fK1_CustomerID', $user_id);
+    $stmt->bindParam(':fK2_RoomID', $room_id);
+    
+    // Execute the query
+    if ($stmt->execute()) {
+        return 1;
+    } else {
+        return -1;
+    }
+}
