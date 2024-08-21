@@ -1,14 +1,13 @@
 <?php
 //                              TAKE CARE OF QUERING THE DATABASE 
 
-function get_available_rooms(object $pdo, string $arrival, string $departure) {
-
+function get_available_rooms($pdo, $arrival, $departure, $room_type, $num_beds, $capacity, $sort_order, $search) {
     // Step 1: Find all room IDs that are already booked during the given period
     $query = "
         SELECT FK2_RoomID 
         FROM makes_simple_resrv 
         WHERE (CheckIn < :departure AND CheckOut > :arrival)
-        ";
+    ";
 
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(':arrival', $arrival);
@@ -17,29 +16,58 @@ function get_available_rooms(object $pdo, string $arrival, string $departure) {
     
     $bookedRooms = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);  // Fetch only the room IDs
 
-    // Step 2: Find all rooms that are not booked during the given period
-    if (!empty($bookedRooms)) {
-        // Create a placeholder string for the IN clause
-        $placeholders = rtrim(str_repeat('?,', count($bookedRooms)), ',');
+    // Step 2: Build the base query
+    $query = "SELECT * FROM room";
+    $conditions = [];
+    $params = [];
 
-        $query = "
-            SELECT * 
-            FROM room 
-            WHERE RoomID NOT IN ($placeholders)
-        ";
-        
-        $stmt = $pdo->prepare($query);
-        $stmt->execute($bookedRooms);
-    } else {
-        // If no rooms are booked, select all rooms
-        $query = "SELECT * FROM room";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute();
+    if (!empty($bookedRooms)) {
+        $placeholders = rtrim(str_repeat('?,', count($bookedRooms)), ',');
+        $conditions[] = "RoomID NOT IN ($placeholders)";
+        $params = array_merge($params, $bookedRooms);
     }
+
+    // Apply filters if provided
+    if (!empty($room_type)) {
+        $conditions[] = "RoomType = :room_type";
+        $params[':room_type'] = $room_type;
+    }
+    if (!empty($num_beds)) {
+        $conditions[] = "NumOfBeds = :num_beds";
+        $params[':num_beds'] = $num_beds;
+    }
+    if (!empty($capacity)) {
+        $conditions[] = "Capacity = :capacity";
+        $params[':capacity'] = $capacity;
+    }
+
+    // Add search filter if provided
+    if (!empty($search)) {
+        $conditions[] = "(RoomName LIKE :search)";
+        $params[':search'] = '%' . $search . '%';  // Add wildcards for partial matching
+    }
+
+    // Combine conditions into the query
+    if (!empty($conditions)) {
+        $query .= " WHERE " . implode(" AND ", $conditions);
+    }
+
+    // Add sorting if the sort_order is provided
+    if (!empty($sort_order)) {
+        $query .= " ORDER BY PricePerNight " . ($sort_order === 'asc' ? 'ASC' : 'DESC');
+    }
+
+    // Prepare and execute the query
+    $stmt = $pdo->prepare($query);
+    foreach ($params as $key => $value) {
+        $stmt->bindValue(is_int($key) ? ($key + 1) : $key, $value);
+    }
+    $stmt->execute();
 
     $availableRooms = $stmt->fetchAll(PDO::FETCH_ASSOC);   
     return $availableRooms;
 }
+
 
 function get_room($pdo, $room_id) {
     $query = "SELECT * FROM room WHERE RoomID = :room_id";

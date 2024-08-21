@@ -82,7 +82,7 @@ $curr_room = get_room($pdo, $room_id);
                                         <a class="nav-link" href="about.html">About</a>
                                     </li>
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="room.html">Our rooms</a>
+                                        <a class="nav-link" href="room.php">Our rooms</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="specialOffers.html">Special Offers</a>
@@ -144,7 +144,7 @@ $curr_room = get_room($pdo, $room_id);
                         <ul class="link_menu">
                             <li><a href="#">Home</a></li>
                             <li><a href="about.html">About</a></li>
-                            <li class="active"><a href="room.html">Our Rooms</a></li>
+                            <li class="active"><a href="room.php">Our Rooms</a></li>
                             <li><a href="specialOffers.html">Special Offers</a></li>
                             <li><a href="services.html">Services</a></li>
                             <li><a href="contact.html">Contact Us</a></li>

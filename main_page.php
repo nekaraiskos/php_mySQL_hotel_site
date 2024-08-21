@@ -75,7 +75,7 @@
                               <a class="nav-link" href="about.html">About</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="room.html">Our&nbsp;rooms</a>
+                              <a class="nav-link" href="room.php">Our&nbsp;rooms</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="specialOffers.html">Special&nbsp;Offers</a>
@@ -442,7 +442,7 @@
                   <ul class="link_menu">
                      <li class="active"><a href="#">Home</a></li>
                      <li><a href="about.html"> about</a></li>
-                     <li><a href="room.html">Our Rooms</a></li>
+                     <li><a href="room.php">Our Rooms</a></li>
                      <li><a href="specialOffers.html">Special Offers</a></li>
                      <li><a href="services.html">Services</a></li>
                      <li><a href="contact.html">Contact Us</a></li>

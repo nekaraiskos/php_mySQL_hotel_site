@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errors["valid_dates"] = "Given dates are invalid!";
         }
 
-        $availableRooms = get_available_rooms($pdo, $arrival, $departure);
+        $availableRooms = get_available_rooms($pdo, $arrival, $departure, "", "", "", "", "");
 
         // Errors EXIST -> Start a session
         session_start(); // Ensure session is started
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['available_rooms'] = $availableRooms;
 
         // Redirect to a new page
-        header("Location: ../../simple_book.php?arrival=" . urlencode($arrival) . "&departure=" . urlencode($departure));
+        header("Location: ../../room.php?arrival=" . urlencode($arrival) . "&departure=" . urlencode($departure));
         exit(); // Make sure to exit after redirect
 
     } catch (PDOException $e) {
