@@ -28,8 +28,7 @@ function output_available_rooms($arrival, $departure) {
             echo '</div>'; // Close .room_img
             
             echo '<div class="bed_room">';
-            echo '<h3>' . htmlspecialchars($room['RoomName']) . '</h3>';
-            echo '<p>USER ID: ' . htmlspecialchars($_SESSION['user_id']) . '<br>';
+            echo '<h3>' . htmlspecialchars($room['RoomName']) . '</h3>';            
             echo '<p>Room Type: ' . htmlspecialchars($room['RoomType']) . '<br>';
             echo '<p>Number Of Beds: ' . htmlspecialchars($room['NumOfBeds']) . '<br>';
             echo 'Capacity: ' . htmlspecialchars($room['Capacity']) . '<br>';
