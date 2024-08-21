@@ -2,20 +2,25 @@
 //                              TAKE CARE OF QUERING THE DATABASE 
 
 function get_available_rooms($pdo, $arrival, $departure, $room_type, $num_beds, $capacity, $sort_order, $search) {
-    // Step 1: Find all room IDs that are already booked during the given period
-    $query = "
-        SELECT FK2_RoomID 
-        FROM makes_simple_resrv 
-        WHERE (CheckIn < :departure AND CheckOut > :arrival)
-    ";
+    if ($arrival != "" && $departure != "") {
+        // Step 1: Find all room IDs that are already booked during the given period
+        $query = "
+            SELECT FK2_RoomID 
+            FROM makes_simple_resrv 
+            WHERE (CheckIn < :departure AND CheckOut > :arrival)
+        ";
 
-    $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':arrival', $arrival);
-    $stmt->bindParam(':departure', $departure);
-    $stmt->execute();
-    
-    $bookedRooms = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);  // Fetch only the room IDs
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':arrival', $arrival);
+        $stmt->bindParam(':departure', $departure);
+        $stmt->execute();
 
+        $bookedRooms = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);  // Fetch only the room IDs
+    }
+    else {
+        $bookedRooms = "";
+    }
+        
     // Step 2: Build the base query
     $query = "SELECT * FROM room";
     $conditions = [];
@@ -66,6 +71,12 @@ function get_available_rooms($pdo, $arrival, $departure, $room_type, $num_beds, 
 
     $availableRooms = $stmt->fetchAll(PDO::FETCH_ASSOC);   
     return $availableRooms;
+}
+
+function get_all_rooms($pdo) {
+    $query = "SELECT * FROM room";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
 }
 
 

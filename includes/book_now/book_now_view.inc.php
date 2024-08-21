@@ -42,7 +42,8 @@ function output_available_rooms($arrival, $departure) {
             echo '</div>'; // Close .room
             echo '</div>'; // Close .col-md-4
         }        
-    } else {
+    }     
+    else {
         echo 'No available rooms found.';
     }    
 }
@@ -100,11 +101,4 @@ function output_room_info($curr_room, $arrival, $departure, $user_id) {
     echo '</div>'; // Close .room-info
     echo '</div>'; // Close .room-details
 }
-
-function output_reserved_room() {
-    
-}
-
-
-
 ?>

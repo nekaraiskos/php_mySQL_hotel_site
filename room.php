@@ -3,7 +3,6 @@ session_start(); // Start session to access session variables
 
 require_once 'includes/book_now/book_now_view.inc.php';
 $user_id = $_SESSION["user_id"];
-
 ?>
 
 <!DOCTYPE html>

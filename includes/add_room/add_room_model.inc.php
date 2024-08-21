@@ -16,7 +16,7 @@ function insert_room_to_table($pdo, $RoomName, $PricePerNight, $NumOfBeds, $Room
     $stmt -> bindParam(":RoomType", $RoomType);
     $stmt -> bindParam(":HasHotTub", $HasHotTub);
     $stmt -> bindParam(":Capacity", $Capacity);
-    $stmt -> bindParam(":Image", $imgContent);
+    $stmt->bindParam(":Image", $imgContent, PDO::PARAM_LOB); // Ensure it's treated as a BLOB
     
     $stmt -> execute();
 }
