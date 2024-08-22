@@ -1,6 +1,11 @@
 <?php
    require_once 'includes/config_session.inc.php';
    require_once 'includes/login/login_view.inc.php';
+
+   //session_start(); // Make sure the session is started
+
+   // Check if the user is logged in
+   $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +72,7 @@
                         <span class="navbar-toggler-icon"></span>
                      </button>
                      <div class="collapse navbar-collapse" id="navbarsExample04">
-                        <ul class="navbar-nav mr-auto">
+                        <ul class="navbar-nav mr-auto d-flex align-items-center">
                            <li class="nav-item active">
                               <a class="nav-link" href="main_page.php">Home</a>
                            </li>
@@ -87,11 +92,21 @@
                               <a class="nav-link" href="contact.html">Contact&nbsp;Us</a>
                            </li>
                         </ul>
-                        <form class="form-inline" action="includes/logout/logout.inc.php" method="post">
-                           <button class="btn btn-danger ml-2" type="submit">Logout</button>
-                        </form>
+                        <ul class="navbar-nav ml-auto d-flex align-items-center">
+                           <?php if (!empty($userId)): ?>
+                              <li class="nav-item">
+                                 <span class="navbar-text" style="color: #FFD700;">User ID: <?php echo htmlspecialchars($userId); ?></span> <!-- Change color here -->
+                              </li>
+                              <li class="nav-item">
+                                 <form class="form-inline" action="includes/logout/logout.inc.php" method="post">
+                                    <button class="btn btn-danger ml-2" type="submit">Logout</button>
+                                 </form>
+                              </li>
+                           <?php endif; ?>
+                        </ul>
                      </div>
                   </nav>
+
 
                </div>
             </div>

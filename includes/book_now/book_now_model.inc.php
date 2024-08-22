@@ -77,6 +77,9 @@ function get_all_rooms($pdo) {
     $query = "SELECT * FROM room";
     $stmt = $pdo->prepare($query);
     $stmt->execute();
+
+    $availableRooms = $stmt->fetchAll(PDO::FETCH_ASSOC);   
+    return $availableRooms;
 }
 
 
