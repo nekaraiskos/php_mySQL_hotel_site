@@ -9,6 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usertype = $_POST["user_type"];
 
     try {
+
+        session_start();
+
         require_once "../dbh.inc.php";     // Connect to the database.
         require_once "login_model.inc.php";
         require_once "login_contr.inc.php";
@@ -45,26 +48,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // }
         else if(is_password_wrong($pwd, $results["pwd"], $usertype)) {
             $errors["login_incorrect"] = "Incorrect login info!";
-        }
-
-        // Errors EXIST -> Start a session
-        require_once "../config_session.inc.php";
+        }        
 
         if ($errors) {
-            $_SESSION["errors_login"] = $errors;
-            
+            $_SESSION["errors_login"] = $errors;            
             header("Location: ../../index.php");
-            die();
+            exit();
         }
+        
+        require_once "../config_session.inc.php";
+
         // session_name('user_session');
         $newSessionId = session_create_id();
         $sessionId = $newSessionId . "_" . $results["id"];
         session_id($sessionId);
 
         // User Logged in
-        $_SESSION["user_id"] = $results["id"];
+        $_SESSION["user_id"] = $results["CustomerID"];
         $_SESSION["user_username"] = htmlspecialchars($results["username"]);    // Sanitize data 
-        $_SESSION['last_regeneration'] = time();                                
+        $_SESSION['last_regeneration'] = time();                                       
 
         // header("Location: ../../index.php?login=success");
 

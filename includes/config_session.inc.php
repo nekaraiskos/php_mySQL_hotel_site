@@ -51,5 +51,5 @@ function regenerate_session_id_loggedin() {
     $sessionID = $newSessionId . "_" . $userID;
     session_id($sessionID);
 
-    $_SESSION['last_regenation'] = time();
+    $_SESSION['last_regeneration'] = time();
 }

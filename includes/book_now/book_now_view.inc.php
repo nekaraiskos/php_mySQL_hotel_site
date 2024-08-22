@@ -28,8 +28,7 @@ function output_available_rooms($arrival, $departure) {
             echo '</div>'; // Close .room_img
             
             echo '<div class="bed_room">';
-            echo '<h3>' . htmlspecialchars($room['RoomName']) . '</h3>';
-            echo '<p>USER ID: ' . htmlspecialchars($_SESSION['user_id']) . '<br>';
+            echo '<h3>' . htmlspecialchars($room['RoomName']) . '</h3>';            
             echo '<p>Room Type: ' . htmlspecialchars($room['RoomType']) . '<br>';
             echo '<p>Number Of Beds: ' . htmlspecialchars($room['NumOfBeds']) . '<br>';
             echo 'Capacity: ' . htmlspecialchars($room['Capacity']) . '<br>';
@@ -38,13 +37,13 @@ function output_available_rooms($arrival, $departure) {
             }
             echo 'Price Per Night: $' . htmlspecialchars($room['PricePerNight']) . '</p>';
             echo '<a href="' . $bookingUrl . '" class="btn-primary">Book Now</a>'; // Book Now button
-            //echo '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
             echo '</div>'; // Close .bed_room
             
             echo '</div>'; // Close .room
             echo '</div>'; // Close .col-md-4
         }        
-    } else {
+    }     
+    else {
         echo 'No available rooms found.';
     }    
 }
@@ -102,11 +101,4 @@ function output_room_info($curr_room, $arrival, $departure, $user_id) {
     echo '</div>'; // Close .room-info
     echo '</div>'; // Close .room-details
 }
-
-function output_reserved_room() {
-    
-}
-
-
-
 ?>
