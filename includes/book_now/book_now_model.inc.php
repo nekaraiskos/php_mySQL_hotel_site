@@ -7,7 +7,7 @@ function get_available_rooms($pdo, $arrival, $departure, $room_type, $num_beds, 
         $query = "
             SELECT FK2_RoomID 
             FROM makes_simple_resrv 
-            WHERE (CheckIn < :departure AND CheckOut > :arrival)
+            WHERE !(:departure <= CheckIn OR :arrival >=CheckOut)            
         ";
 
         $stmt = $pdo->prepare($query);

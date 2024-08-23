@@ -1,3 +1,10 @@
+<?php
+session_start(); // Start session to access session variables
+
+require_once 'includes/services/services_view.inc.php';
+$user_id = $_SESSION["user_id"];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +40,7 @@
 </head>
 <!-- body -->
 
-<body class="main-layout">
+<body class="main-layout inner_page">
    <!-- loader  -->
    <div class="loader_bg">
       <div class="loader"><img src="images/loading.gif" alt="#" /></div>
@@ -65,17 +72,17 @@
                            <li class="nav-item ">
                               <a class="nav-link" href="main_page.php">Home</a>
                            </li>
-                           <li class="nav-item active">
+                           <li class="nav-item">
                               <a class="nav-link" href="about.html">About</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="get_all_rooms.php">Our rooms</a>
+                              <a class="nav-link" href="get_all_rooms.php">Our Rooms</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="specialOffers.html">Special Offers</a>
                            </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="get_services.php">Services</a>
+                           <li class="nav-item active">
+                              <a class="nav-link" href="services.php">Services</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="contact.html">Contact Us</a>
@@ -95,36 +102,88 @@
          <div class="row">
             <div class="col-md-12">
                <div class="title">
-                  <h2>About Us</h2>
+                  <h2>Services</h2>
                </div>
             </div>
          </div>
       </div>
    </div>
-   <!-- about -->
-   <div class="about">
-      <div class="container-fluid">
+
+   <!-- services -->
+<div class="services" style="background: url('images/Activities.jfif') no-repeat; background-size: 100% 100%;">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="titlepage">
+               <p class="margin_0" style="color: #333; font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                  Activities
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <?php output_activity_services();?>            
+      </div>
+   </div> 
+   <!-- Extra space with "See more" button -->
+   <div style="text-align: right; margin-right: 20px;">
+      <a href="includes/services/services.inc.php?services=Activities" class="btn btn-primary" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none;">
+         See more
+      </a>
+   </div>     
+</div>
+<!-- end services -->
+
+
+   <!-- services -->
+   <div class="services" style="background: url('images/wellness.jpg') no-repeat; background-size: 100% 100%;">
+      <div class="container">
          <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-12">
                <div class="titlepage">
-
-                  <p class="margin_0">The passage experienced a surge in popularity during the 1960s when Letraset used
-                     it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text
-                     with their software. Today it's seen all around the web; on templates, websites, and stock designs.
-                     Use our generator to get your own, or read on for the authoritative history of lorem ipsum. </p>
-                  <a class="read_more" href="Javascript:void(0)"> Read More</a>
-               </div>
-            </div>
-            <div class="col-md-7">
-               <div class="about_img">
-                  <figure><img src="images/about.png" alt="#" /></figure>
+                  <p class="margin_0" style="color: #333; font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                     Wellness
+                  </p>
                </div>
             </div>
          </div>
+         <div class="row">
+            <?php output_wellness_services(); ?>
+         </div>
       </div>
+      <!-- Extra space with "See more" button -->
+      <div style="text-align: right; margin-right: 20px;">
+         <a href="includes/services/services.inc.php?services=Wellness" class="btn btn-primary" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none;">
+            See more
+         </a>
+      </div>   
    </div>
-   <!-- end about -->
+   <!-- end services -->
 
+   <!-- services -->
+   <div class="services" style="background: url('images/CulinaryExperiences.jpg') no-repeat; background-size: 100% 100%;">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12">
+               <div class="titlepage">
+                  <p class="margin_0" style="font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                     Culinary Experiences
+                  </p>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <?php output_culinary_services(); ?>
+         </div>
+      </div>
+         <!-- Extra space with "See more" button -->
+         <div style="text-align: right; margin-right: 20px;">
+            <a href="includes/services/services.inc.php?services=Culinary" class="btn btn-primary" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none;">
+               See more
+            </a>
+         </div>   
+   </div>
+   <!-- end services -->
 
    <!--  footer -->
    <footer>
@@ -143,10 +202,10 @@
                   <h3>Menu Link</h3>
                   <ul class="link_menu">
                      <li><a href="#">Home</a></li>
-                     <li class="active"><a href="about.html"> about</a></li>
+                     <li><a href="about.html"> about</a></li>
                      <li><a href="get_all_rooms.php">Our Rooms</a></li>
                      <li><a href="specialOffers.html">Special Offers</a></li>
-                     <li><a href="get_services.php">Services</a></li>
+                     <li class="active"><a href="services.php">Services</a></li>
                      <li><a href="contact.html">Contact Us</a></li>
                   </ul>
                </div>

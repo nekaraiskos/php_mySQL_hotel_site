@@ -1,3 +1,28 @@
+<?php
+session_start(); // Start session to access session variables
+
+require_once "includes/dbh.inc.php";     // Connect to the database.        
+require_once 'includes/services/services_view.inc.php';
+require_once "includes/services/services_model.inc.php";
+
+$user_id = $_SESSION["user_id"];
+$type = $_SESSION["type"];
+
+if ($type == "Activities") {
+    $_SESSION["services"] = get_all_activities($pdo);
+}
+else if ($type == "Wellness") {
+    $_SESSION["services"] = get_all_wellness($pdo);
+}
+else if ($type == "Culinary") {
+    $_SESSION["services"] = get_all_culinary($pdo);
+}
+else {
+    // !!!! ERROR ????
+     header("Location: main_page.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +58,7 @@
 </head>
 <!-- body -->
 
-<body class="main-layout">
+<body class="main-layout inner_page">
    <!-- loader  -->
    <div class="loader_bg">
       <div class="loader"><img src="images/loading.gif" alt="#" /></div>
@@ -65,17 +90,17 @@
                            <li class="nav-item ">
                               <a class="nav-link" href="main_page.php">Home</a>
                            </li>
-                           <li class="nav-item active">
+                           <li class="nav-item">
                               <a class="nav-link" href="about.html">About</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="get_all_rooms.php">Our rooms</a>
+                              <a class="nav-link" href="get_all_rooms.php">Our Rooms</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="specialOffers.html">Special Offers</a>
                            </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="get_services.php">Services</a>
+                           <li class="nav-item active">
+                              <a class="nav-link" href="services.php">Services</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="contact.html">Contact Us</a>
@@ -94,36 +119,33 @@
       <div class="container">
          <div class="row">
             <div class="col-md-12">
-               <div class="title">
-                  <h2>About Us</h2>
+                <div class="title">
+                    <?php                
+                        echo "<h2>" . $type . "</h2>";                    
+                    ?>            
                </div>
             </div>
          </div>
       </div>
    </div>
-   <!-- about -->
-   <div class="about">
-      <div class="container-fluid">
-         <div class="row">
-            <div class="col-md-5">
-               <div class="titlepage">
 
-                  <p class="margin_0">The passage experienced a surge in popularity during the 1960s when Letraset used
-                     it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text
-                     with their software. Today it's seen all around the web; on templates, websites, and stock designs.
-                     Use our generator to get your own, or read on for the authoritative history of lorem ipsum. </p>
-                  <a class="read_more" href="Javascript:void(0)"> Read More</a>
-               </div>
+   <!-- Booking Details -->
+   <div class="our_room">
+        <div class="container">            
+            <div class="row">                
+                <?php 
+                    if($type == "Activities") {
+                        output_all_activities(); 
+                    }                    
+                    else {
+                        echo "Hii";
+                    }
+                ?>
             </div>
-            <div class="col-md-7">
-               <div class="about_img">
-                  <figure><img src="images/about.png" alt="#" /></figure>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- end about -->
+        </div>
+    </div>
+    <!-- end Booking Details -->
+
 
 
    <!--  footer -->
@@ -143,10 +165,10 @@
                   <h3>Menu Link</h3>
                   <ul class="link_menu">
                      <li><a href="#">Home</a></li>
-                     <li class="active"><a href="about.html"> about</a></li>
+                     <li><a href="about.html"> about</a></li>
                      <li><a href="get_all_rooms.php">Our Rooms</a></li>
                      <li><a href="specialOffers.html">Special Offers</a></li>
-                     <li><a href="get_services.php">Services</a></li>
+                     <li class="active"><a href="services.php">Services</a></li>
                      <li><a href="contact.html">Contact Us</a></li>
                   </ul>
                </div>
