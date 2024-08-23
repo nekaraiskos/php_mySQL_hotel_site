@@ -1,3 +1,28 @@
+<?php
+session_start(); // Start session to access session variables
+
+require_once "includes/dbh.inc.php";     // Connect to the database.        
+require_once 'includes/services/services_view.inc.php';
+require_once "includes/services/services_model.inc.php";
+
+$user_id = $_SESSION["user_id"];
+$type = $_SESSION["type"];
+
+if ($type == "Activities") {
+    $_SESSION["services"] = get_all_activities($pdo);
+}
+else if ($type == "Wellness") {
+    $_SESSION["services"] = get_all_wellness($pdo);
+}
+else if ($type == "Culinary") {
+    $_SESSION["services"] = get_all_culinary($pdo);
+}
+else {
+    // !!!! ERROR ????
+     header("Location: main_page.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,7 +100,7 @@
                               <a class="nav-link" href="specialOffers.html">Special Offers</a>
                            </li>
                            <li class="nav-item active">
-                              <a class="nav-link" href="services.html">Services</a>
+                              <a class="nav-link" href="services.php">Services</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="contact.html">Contact Us</a>
@@ -94,68 +119,34 @@
       <div class="container">
          <div class="row">
             <div class="col-md-12">
-               <div class="title">
-                  <h2>Services</h2>
+                <div class="title">
+                    <?php                
+                        echo "<h2>" . $type . "</h2>";                    
+                    ?>            
                </div>
             </div>
          </div>
       </div>
    </div>
-   <!-- services -->
-   <div class="services">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="titlepage">
 
-                  <p class="margin_0">Lorem Ipsum available, but the majority have suffered </p>
-               </div>
+   <!-- Booking Details -->
+   <div class="our_room">
+        <div class="container">            
+            <div class="row">                
+                <?php 
+                    if($type == "Activities") {
+                        output_all_activities(); 
+                    }                    
+                    else {
+                        echo "Hii";
+                    }
+                ?>
             </div>
-         </div>
-         <div class="row">
-            <div class="col-md-4">
-               <div class="services_box">
-                  <div class="services_img">
-                     <figure><img src="images/services1.jpg" alt="#" /></figure>
-                  </div>
-                  <div class="services_room">
-                     <h3>Bed Room</h3>
-                     <span>The standard chunk </span>
-                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything
-                        embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you are </p>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-4">
-               <div class="services_box">
-                  <div class="services_img">
-                     <figure><img src="images/services2.jpg" alt="#" /></figure>
-                  </div>
-                  <div class="services_room">
-                     <h3>Bed Room</h3>
-                     <span>The standard chunk </span>
-                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything
-                        embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you are </p>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-4">
-               <div class="services_box">
-                  <div class="services_img">
-                     <figure><img src="images/services3.jpg" alt="#" /></figure>
-                  </div>
-                  <div class="services_room">
-                     <h3>Bed Room</h3>
-                     <span>The standard chunk </span>
-                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything
-                        embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you are </p>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- end services -->
+        </div>
+    </div>
+    <!-- end Booking Details -->
+
+
 
    <!--  footer -->
    <footer>
@@ -177,7 +168,7 @@
                      <li><a href="about.html"> about</a></li>
                      <li><a href="room.html">Our Rooms</a></li>
                      <li><a href="specialOffers.html">Special Offers</a></li>
-                     <li class="active"><a href="services.html">Services</a></li>
+                     <li class="active"><a href="services.php">Services</a></li>
                      <li><a href="contact.html">Contact Us</a></li>
                   </ul>
                </div>

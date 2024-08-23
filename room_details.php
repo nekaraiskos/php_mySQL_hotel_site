@@ -10,6 +10,14 @@ $departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : 
 $room_id = isset($_GET['room_id']) ? htmlspecialchars($_GET['room_id']) : 'Not provided';
 $user_id = $_SESSION["user_id"];
 
+if ($arrival == 'Not provided' || $departure == 'Not provided' || $room_id == 'Not provided') {
+    
+    // !!!!!! ERROR MESSAGE !!!!!!
+    // Redirect to a new page with filter parameters
+    header("Location: room.php");
+    exit(); // Make sure to exit after redirect
+}
+
 $curr_room = get_room($pdo, $room_id);
 ?>
 
@@ -88,7 +96,7 @@ $curr_room = get_room($pdo, $room_id);
                                         <a class="nav-link" href="specialOffers.html">Special Offers</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="services.html">Services</a>
+                                        <a class="nav-link" href="get_services.php">Services</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="contact.html">Contact Us</a>
@@ -146,7 +154,7 @@ $curr_room = get_room($pdo, $room_id);
                             <li><a href="about.html">About</a></li>
                             <li class="active"><a href="room.html">Our Rooms</a></li>
                             <li><a href="specialOffers.html">Special Offers</a></li>
-                            <li><a href="services.html">Services</a></li>
+                            <li><a href="get_services.php">Services</a></li>
                             <li><a href="contact.html">Contact Us</a></li>
                         </ul>
                     </div>

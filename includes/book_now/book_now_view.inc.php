@@ -102,10 +102,3 @@ function output_room_info($curr_room, $arrival, $departure, $user_id) {
     echo '</div>'; // Close .room-details
 }
 
-function output_reserved_room() {
-    
-}
-
-
-
-?>

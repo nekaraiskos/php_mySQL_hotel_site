@@ -1,3 +1,10 @@
+<?php
+session_start(); // Start session to access session variables
+
+require_once 'includes/services/services_view.inc.php';
+$user_id = $_SESSION["user_id"];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +40,7 @@
 </head>
 <!-- body -->
 
-<body class="main-layout">
+<body class="main-layout inner_page">
    <!-- loader  -->
    <div class="loader_bg">
       <div class="loader"><img src="images/loading.gif" alt="#" /></div>
@@ -69,15 +76,15 @@
                               <a class="nav-link" href="about.html">About</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="room.html">Our rooms</a>
+                              <a class="nav-link" href="get_all_rooms.php">Our Rooms</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="specialOffers.html">Special Offers</a>
                            </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="get_services.php">Services</a>
-                           </li>
                            <li class="nav-item active">
+                              <a class="nav-link" href="services.php">Services</a>
+                           </li>
+                           <li class="nav-item">
                               <a class="nav-link" href="contact.html">Contact Us</a>
                            </li>
                         </ul>
@@ -95,51 +102,89 @@
          <div class="row">
             <div class="col-md-12">
                <div class="title">
-                  <h2>Contact Us</h2>
+                  <h2>Services</h2>
                </div>
             </div>
          </div>
       </div>
    </div>
-   <!--  contact -->
-   <div class="contact">
+
+   <!-- services -->
+<div class="services" style="background: url('images/Activities.jfif') no-repeat; background-size: 100% 100%;">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="titlepage">
+               <p class="margin_0" style="color: #333; font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                  Activities
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <?php output_activity_services();?>            
+      </div>
+   </div> 
+   <!-- Extra space with "See more" button -->
+   <div style="text-align: right; margin-right: 20px;">
+      <a href="includes/services/services.inc.php?services=Activities" class="btn btn-primary" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none;">
+         See more
+      </a>
+   </div>     
+</div>
+<!-- end services -->
+
+
+   <!-- services -->
+   <div class="services" style="background: url('images/wellness.jpg') no-repeat; background-size: 100% 100%;">
       <div class="container">
          <div class="row">
-            <div class="col-md-6">
-               <form id="request" class="main_form">
-                  <div class="row">
-                     <div class="col-md-12 ">
-                        <input class="contactus" placeholder="Name" type="type" name="Name">
-                     </div>
-                     <div class="col-md-12">
-                        <input class="contactus" placeholder="Email" type="type" name="Email">
-                     </div>
-                     <div class="col-md-12">
-                        <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">
-                     </div>
-                     <div class="col-md-12">
-                        <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message</textarea>
-                     </div>
-                     <div class="col-md-12">
-                        <button class="send_btn">Send</button>
-                     </div>
-                  </div>
-               </form>
-            </div>
-            <div class="col-md-6">
-               <div class="map_main">
-                  <div class="map-responsive">
-                     <iframe
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=Eiffel+Tower+Paris+France"
-                        width="600" height="400" frameborder="0" style="border:0; width: 100%;"
-                        allowfullscreen=""></iframe>
-                  </div>
+            <div class="col-md-12">
+               <div class="titlepage">
+                  <p class="margin_0" style="color: #333; font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                     Wellness
+                  </p>
                </div>
             </div>
          </div>
+         <div class="row">
+            <?php output_wellness_services(); ?>
+         </div>
       </div>
+      <!-- Extra space with "See more" button -->
+      <div style="text-align: right; margin-right: 20px;">
+         <a href="includes/services/services.inc.php?services=Wellness" class="btn btn-primary" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none;">
+            See more
+         </a>
+      </div>   
    </div>
-   <!-- end contact -->
+   <!-- end services -->
+
+   <!-- services -->
+   <div class="services" style="background: url('images/CulinaryExperiences.jpg') no-repeat; background-size: 100% 100%;">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12">
+               <div class="titlepage">
+                  <p class="margin_0" style="font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                     Culinary Experiences
+                  </p>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <?php output_culinary_services(); ?>
+         </div>
+      </div>
+         <!-- Extra space with "See more" button -->
+         <div style="text-align: right; margin-right: 20px;">
+            <a href="includes/services/services.inc.php?services=Culinary" class="btn btn-primary" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none;">
+               See more
+            </a>
+         </div>   
+   </div>
+   <!-- end services -->
+
    <!--  footer -->
    <footer>
       <div class="footer">
@@ -158,10 +203,10 @@
                   <ul class="link_menu">
                      <li><a href="#">Home</a></li>
                      <li><a href="about.html"> about</a></li>
-                     <li><a href="room.html">Our Rooms</a></li>
+                     <li><a href="get_all_rooms.php">Our Rooms</a></li>
                      <li><a href="specialOffers.html">Special Offers</a></li>
-                     <li><a href="get_services.php">Services</a></li>
-                     <li class="active"><a href="contact.html">Contact Us</a></li>
+                     <li class="active"><a href="services.php">Services</a></li>
+                     <li><a href="contact.html">Contact Us</a></li>
                   </ul>
                </div>
                <div class="col-md-4">

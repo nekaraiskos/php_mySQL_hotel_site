@@ -1,13 +1,13 @@
 <?php
 //                              TAKE CARE OF QUERING THE DATABASE 
 
-function get_available_rooms(object $pdo, string $arrival, string $departure) {
-
-    // Step 1: Find all room IDs that are already booked during the given period
-    $query = "
-        SELECT FK2_RoomID 
-        FROM makes_simple_resrv 
-        WHERE (CheckIn < :departure AND CheckOut > :arrival)
+function get_available_rooms($pdo, $arrival, $departure, $room_type, $num_beds, $capacity, $sort_order, $search) {
+    if ($arrival != "" && $departure != "") {
+        // Step 1: Find all room IDs that are already booked during the given period
+        $query = "
+            SELECT FK2_RoomID 
+            FROM makes_simple_resrv 
+            WHERE !(:departure <= CheckIn OR :arrival >=CheckOut)            
         ";
 
     $stmt = $pdo->prepare($query);
