@@ -158,6 +158,12 @@
             </div>
             <!-- ADD ROOM POPUP MENU-->
             <div class="modal-body">
+               <?php 
+               //    if (isset($_SESSION['error_message'])) {
+               //       echo '<div class="alert alert-danger">' . $_SESSION['error_message'] . '</div>';
+               //       unset($_SESSION['error_message']); // Clear the message after displaying it
+               //   }
+               ?>
                <form action="includes/add_room/add_room.inc.php" method="post" enctype="multipart/form-data">
                <!-- </form>enctype="multipart/form-data"> -->
                   <div class="form-group">
@@ -211,12 +217,6 @@
 	</div>
 </div>
    <!-- end our_room -->
-
-
-
-
-
-
 
 
    <!--  footer -->
