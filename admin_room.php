@@ -1,3 +1,11 @@
+<?php 
+// require_once 'C:/xampp/htdocs/21_8/includes/add_room/add_room_view.inc.php';
+// require_once 'C:/xampp/htdocs/21_8/includes/dbh.inc.php';
+   require_once 'includes/dbh.inc.php';
+   require_once 'includes/add_room/add_room_view.inc.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,7 +77,7 @@
                               <a class="nav-link" href="about.html">About</a>
                            </li>
                            <li class="nav-item active">
-                              <a class="nav-link" href="admin_room.html">Our room</a>
+                              <a class="nav-link" href="admin_room.php">Our room</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="specialOffers.html">Special Offers</a>
@@ -130,23 +138,12 @@
 				</div>
 			</div>
 		</div>  
-		<!-- <form action="includes/add_room.php" method="post"> -->
-		<!-- </form> enctype="multipart/form-data"> -->
-			<!-- <div class="form-group">
-				<label for="RoomNum" class="form-label">Room Number</label>
-				<input type="text" id="RoomNum" name="RoomNum" class="form-control">
-			</div>
-			<div class="form-group">
-				<label for="PricePerNight" class="form-label">Price Per Night</label>
-				<input type="number" id="PricePerNight" name="PricePerNight" class="form-control">
-			</div> -->
-			<!-- Add other fields similarly -->
-			<!-- <div class="form-group">
-				<label for="roomImage" class="form-label">Room Image</label>
-				<input type="file" id="roomImage" name="roomImage" class="form-control">
-			</div>
-			<button type="submit" class="btn btn-primary">Add Room</button>
-		</form> -->
+
+      <?php 
+         // require_once 'includes/add_room/add_room_view.inc.php';
+         // require_once 'includes/dbh.inc.php';
+         display_admin_rooms($pdo);
+      ?>
 
 		<!-- Trigger Button to Open Add Room form -->
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRoomModal">Add New Room</button>
@@ -161,10 +158,16 @@
             </div>
             <!-- ADD ROOM POPUP MENU-->
             <div class="modal-body">
+               <?php 
+               //    if (isset($_SESSION['error_message'])) {
+               //       echo '<div class="alert alert-danger">' . $_SESSION['error_message'] . '</div>';
+               //       unset($_SESSION['error_message']); // Clear the message after displaying it
+               //   }
+               ?>
                <form action="includes/add_room/add_room.inc.php" method="post" enctype="multipart/form-data">
                <!-- </form>enctype="multipart/form-data"> -->
                   <div class="form-group">
-                     <label for="RoomNum" class="form-label">Room Name </label>
+                     <label for="RoomName" class="form-label">Room Name </label>
                      <input type="text" id="RoomName" name="room_name" class="form-control">
                   </div>
                   <div class="form-group">
@@ -175,10 +178,20 @@
                      <label for="NumOfBeds" class="form-label">Number of Beds</label>
                      <input type="number" id="NumOfBeds" name="num_of_beds" class="form-control">
                   </div>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                      <label for="RoomType" class="form-label">Room Type</label>
                      <input type="text" id="RoomType" name="room_type" class="form-control">
+                  </div> -->
+
+                  <div class="form-group">
+                     <label for="RoomType">Room Type</label>
+                     <select id="RoomType" name="room_type" class="form-control">
+                        <option value="Single" >Single</option>
+                        <option value="Double" >Double</option>
+                        <option value="Suite" >Suite</option>
+                     </select>
                   </div>
+
                   <div class="form-group">
                      <label for="HasHotTub" class="form-label">Has Hot Tub</label>
                      <input type="checkbox" id="HasHotTub" name="has_hot_tub" class="form-control">
@@ -206,12 +219,6 @@
    <!-- end our_room -->
 
 
-
-
-
-
-
-
    <!--  footer -->
    <footer>
       <div class="footer">
@@ -230,7 +237,7 @@
                   <ul class="link_menu">
                      <li><a href="#">Home</a></li>
                      <li><a href="about.html"> about</a></li>
-                     <li class="active"><a href="admin_room.html">Our Room</a></li>
+                     <li class="active"><a href="admin_room.php">Our Room</a></li>
                      <li><a href="specialOffers.html">Special Offers</a></li>
                      <li><a href="blog.html">Blog</a></li>
                      <li><a href="contact.html">Contact Us</a></li>

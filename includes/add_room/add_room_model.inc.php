@@ -20,3 +20,16 @@ function insert_room_to_table($pdo, $RoomName, $PricePerNight, $NumOfBeds, $Room
     
     $stmt -> execute();
 }
+
+function get_admin_rooms($pdo) {
+
+    $sql = "SELECT * FROM room";
+    $stmt = $pdo->prepare($sql);
+
+    $stmt -> execute();
+    // $results = $stmt(PDO::FETCH_ASSOC);
+    $results = $stmt -> fetchAll(PDO::FETCH_ASSOC);
+    // print_r($results);
+    // print_r($results);
+    return $results;
+}

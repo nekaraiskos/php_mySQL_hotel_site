@@ -16,6 +16,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once "add_room_contr.inc.php";
 
         $errors = [];
+        // Error handling: Check for empty required fields
+        // if (empty($roomName) || empty($pricePerNight) || empty($numOfBeds) || empty($roomType) || empty($capacity) || empty($image)) {
+        //     $_SESSION['error_message'] = 'Please fill in all required fields.';
+        //     header("Location: ../../admin_room.php#addRoomModal"); // Stay on the form page with the modal open
+        //     exit();
+        // }
 
         $imgContent = file_get_contents($image);
 
@@ -36,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($uploadOk == 1) {
             insert_room_to_table($pdo, $roomname, $pricepernight, $numofbeds, $roomtype, $hashottub, $capacity, $imgContent);
-            header("Location: ../../admin_room.html?upload=success");
+            header("Location: ../../admin_room.php?upload=success");
             exit();
         } else {
             echo "Sorry, your file was not uploaded.";
