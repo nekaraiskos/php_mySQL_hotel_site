@@ -83,7 +83,7 @@
                               <a class="nav-link" href="specialOffers.html">Special Offers</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="blog.html">Blog</a>
+                              <a class="nav-link" href="admin_services.php">Services</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="contact.html">Contact Us</a>
@@ -111,7 +111,7 @@
    </div>
 
 
-
+   
 
 
    <!-- our_room -->
@@ -168,15 +168,15 @@
                <!-- </form>enctype="multipart/form-data"> -->
                   <div class="form-group">
                      <label for="RoomName" class="form-label">Room Name </label>
-                     <input type="text" id="RoomName" name="room_name" class="form-control">
+                     <input type="text" id="RoomName" name="room_name" class="form-control" required>
                   </div>
                   <div class="form-group">
                      <label for="PricePerNight" class="form-label">Price Per Night</label>
-                     <input type="number" id="PricePerNight" name="price_per_night" class="form-control">
+                     <input type="number" id="PricePerNight" name="price_per_night" class="form-control" required>
                   </div>
                   <div class="form-group">
                      <label for="NumOfBeds" class="form-label">Number of Beds</label>
-                     <input type="number" id="NumOfBeds" name="num_of_beds" class="form-control">
+                     <input type="number" id="NumOfBeds" name="num_of_beds" class="form-control" required>
                   </div>
                   <!-- <div class="form-group">
                      <label for="RoomType" class="form-label">Room Type</label>
@@ -198,11 +198,11 @@
                   </div>
                   <div class="form-group">
                      <label for="Capacity" class="form-label">Capacity</label>
-                     <input type="number" id="Capacity" name="capacity" class="form-control">
+                     <input type="number" id="Capacity" name="capacity" class="form-control" required>
                   </div>
                   <div class="form-group">
                      <label for="Image" class="form-label"></label>Room Image</label>
-                     <input type="file" id="image" name="image" class="form-control">
+                     <input type="file" id="image" name="image" class="form-control" required>
                   </div>
                   <button type="submit" class="btn btn-primary">Add Room</button>
                </form>
@@ -239,7 +239,7 @@
                      <li><a href="about.html"> about</a></li>
                      <li class="active"><a href="admin_room.php">Our Room</a></li>
                      <li><a href="specialOffers.html">Special Offers</a></li>
-                     <li><a href="blog.html">Blog</a></li>
+                     <li><a href="admin_services.php">Services</a></li>
                      <li><a href="contact.html">Contact Us</a></li>
                   </ul>
                </div>

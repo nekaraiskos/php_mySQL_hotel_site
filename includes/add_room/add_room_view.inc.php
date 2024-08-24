@@ -37,7 +37,7 @@ function display_admin_rooms($pdo) {
             if ($room['HasHotTub'] == 1) {
                 echo 'Hot Tub Included<br>';
             }
-            echo 'Price Per Night: $' . htmlspecialchars($room['PricePerNight']) . '</p>';
+            echo 'Price Per Night: &#8364' . htmlspecialchars($room['PricePerNight']) . '</p>';
 
             echo '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editRoomModal' . $room['RoomID'] . '">Edit</button> ';
             // echo '<button type="button" class="btn btn-danger" onclick="deleteRoom(' . $room['RoomID'] . ')">Delete</button>';
