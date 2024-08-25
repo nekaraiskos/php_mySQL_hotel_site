@@ -94,7 +94,7 @@ else {
                               <a class="nav-link" href="about.html">About</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="room.html">Our Rooms</a>
+                              <a class="nav-link" href="get_all_rooms.php">Our Rooms</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="specialOffers.html">Special Offers</a>
@@ -166,7 +166,7 @@ else {
                   <ul class="link_menu">
                      <li><a href="#">Home</a></li>
                      <li><a href="about.html"> about</a></li>
-                     <li><a href="room.html">Our Rooms</a></li>
+                     <li><a href="get_all_rooms.php">Our Rooms</a></li>
                      <li><a href="specialOffers.html">Special Offers</a></li>
                      <li class="active"><a href="services.php">Services</a></li>
                      <li><a href="contact.html">Contact Us</a></li>

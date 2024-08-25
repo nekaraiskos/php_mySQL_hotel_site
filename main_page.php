@@ -1,6 +1,11 @@
 <?php
    require_once 'includes/config_session.inc.php';
    require_once 'includes/login/login_view.inc.php';
+
+   //session_start(); // Make sure the session is started
+
+   // Check if the user is logged in
+   $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +72,7 @@
                         <span class="navbar-toggler-icon"></span>
                      </button>
                      <div class="collapse navbar-collapse" id="navbarsExample04">
-                        <ul class="navbar-nav mr-auto">
+                        <ul class="navbar-nav mr-auto d-flex align-items-center">
                            <li class="nav-item active">
                               <a class="nav-link" href="main_page.php">Home</a>
                            </li>
@@ -75,10 +80,10 @@
                               <a class="nav-link" href="about.html">About</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="room.html">Our&nbsp;rooms</a>
+                              <a class="nav-link" href="get_all_rooms.php">Our&nbsp;rooms</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="specialOffers.html">Special&nbsp;Offers</a>
+                              <a class="nav-link" href="get_all_offers.php">Special&nbsp;Offers</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="get_services.php">Services</a>
@@ -87,11 +92,21 @@
                               <a class="nav-link" href="contact.html">Contact&nbsp;Us</a>
                            </li>
                         </ul>
-                        <form class="form-inline" action="includes/logout/logout.inc.php" method="post">
-                           <button class="btn btn-danger ml-2" type="submit">Logout</button>
-                        </form>
+                        <ul class="navbar-nav ml-auto d-flex align-items-center">
+                           <?php if (!empty($userId)): ?>
+                              <li class="nav-item">
+                                 <span class="navbar-text" style="color: #FFD700;">User ID: <?php echo htmlspecialchars($userId); ?></span> <!-- Change color here -->
+                              </li>
+                              <li class="nav-item">
+                                 <form class="form-inline" action="includes/logout/logout.inc.php" method="post">
+                                    <button class="btn btn-danger ml-2" type="submit">Logout</button>
+                                 </form>
+                              </li>
+                           <?php endif; ?>
+                        </ul>
                      </div>
                   </nav>
+
 
                </div>
             </div>
@@ -442,7 +457,7 @@
                   <ul class="link_menu">
                      <li class="active"><a href="#">Home</a></li>
                      <li><a href="about.html"> about</a></li>
-                     <li><a href="room.html">Our Rooms</a></li>
+                     <li><a href="get_all_rooms.php">Our Rooms</a></li>
                      <li><a href="specialOffers.html">Special Offers</a></li>
                      <li><a href="get_services.php">Services</a></li>
                      <li><a href="contact.html">Contact Us</a></li>

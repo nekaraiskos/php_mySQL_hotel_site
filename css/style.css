@@ -1008,3 +1008,55 @@ ul.social_icon li a:hover {
      color: #5cb85c;
      /* Bootstrap success color */
 }
+
+/* Styles for the filter section */
+.filter-section {
+     background-color: #f8f9fa;
+     padding: 20px;
+     border-radius: 8px;
+     margin-bottom: 20px;
+     /* Reduced from 30px to 20px */
+}
+
+.filter-section .form-control {
+     margin-bottom: 15px;
+     /* Adjust if needed */
+}
+
+/* Adjust spacing for the title page */
+.titlepage {
+     margin-bottom: 20px;
+     /* Reduced from 30px to 20px */
+}
+
+/* Custom style for the search bar */
+#search {
+     border: 2px solid #007bff;
+     /* Border color */
+     border-radius: 20px;
+     /* Rounded corners */
+     padding: 10px 15px;
+     /* Padding inside the search bar */
+     font-size: 16px;
+     /* Adjust font size */
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     /* Subtle shadow for depth */
+     transition: border-color 0.3s, box-shadow 0.3s;
+     /* Smooth transition effect */
+}
+
+/* Change border color and shadow on focus */
+#search:focus {
+     border-color: #0056b3;
+     /* Darker border color on focus */
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+     /* More pronounced shadow on focus */
+     outline: none;
+     /* Remove default focus outline */
+}
+
+/* Style the label for the search bar */
+#search+.form-label {
+     display: none;
+     /* Hide the label if it's not used */
+}

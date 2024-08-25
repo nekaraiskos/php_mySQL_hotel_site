@@ -1,3 +1,10 @@
+<?php
+session_start(); // Start session to access session variables
+
+require_once 'includes/offers/offers_view.inc.php';
+$user_id = $_SESSION["user_id"];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,7 +76,7 @@
                               <a class="nav-link" href="about.html">About</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="room.html">Our rooms</a>
+                              <a class="nav-link" href="get_all_rooms.php">Our rooms</a>
                            </li>
                            <li class="nav-item active">
                               <a class="nav-link" href="specialOffers.html">Special Offers</a>
@@ -104,48 +111,8 @@
    <!-- Special Offers -->
    <div class="specialOffers">
       <div class="container">
-
          <div class="row">
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers1.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers2.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers3.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers4.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers5.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers6.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers7.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers8.jpg" alt="#" /></figure>
-               </div>
-            </div>
+            <?php output_special_offers();?>            
          </div>
       </div>
    </div>
@@ -169,7 +136,7 @@
                   <ul class="link_menu">
                      <li><a href="#">Home</a></li>
                      <li><a href="about.html"> about</a></li>
-                     <li><a href="room.html">Our Rooms</a></li>
+                     <li><a href="get_all_rooms.php">Our Rooms</a></li>
                      <li class="active"><a href="specialOffers.html">Special Offers</a></li>
                      <li><a href="services.php">Services</a></li>
                      <li><a href="contact.html">Contact Us</a></li>

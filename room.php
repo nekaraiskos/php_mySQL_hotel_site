@@ -2,11 +2,7 @@
 session_start(); // Start session to access session variables
 
 require_once 'includes/book_now/book_now_view.inc.php';
-
-$arrival = isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : 'Not provided';
-$departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : 'Not provided';
 $user_id = $_SESSION["user_id"];
-
 ?>
 
 <!DOCTYPE html>
@@ -110,21 +106,94 @@ $user_id = $_SESSION["user_id"];
             </div>
         </div>
     </div>
+
+    <!-- Space Divider -->
+    <div style="height: 30px;"></div>
+
+    <!-- Filter Section -->
+    <div class="filter_section">
+        <div class="container">
+            <form method="GET" action="filter_rooms.php">
+                <input type="hidden" name="arrival" value="<?php echo htmlspecialchars($arrival); ?>">
+                <input type="hidden" name="departure" value="<?php echo htmlspecialchars($departure); ?>">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="arrival">Arrival Date:</label>
+                        <input type="date" name="arrival" id="arrival" class="form-control" value="<?php echo isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : ''; ?>">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="departure">Departure Date:</label>
+                        <input type="date" name="departure" id="departure" class="form-control" value="<?php echo isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : ''; ?>">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="room_type">Room Type:</label>
+                        <select name="room_type" id="room_type" class="form-control">
+                            <option value="">Any</option>
+                            <option value="single" <?php echo isset($_GET['room_type']) && $_GET['room_type'] == 'single' ? 'selected' : ''; ?>>Single</option>
+                            <option value="double" <?php echo isset($_GET['room_type']) && $_GET['room_type'] == 'double' ? 'selected' : ''; ?>>Double</option>
+                            <option value="suite" <?php echo isset($_GET['room_type']) && $_GET['room_type'] == 'suite' ? 'selected' : ''; ?>>Suite</option>
+                        </select>
+                    </div>
+                    <!-- New Search Bar -->        
+                    <div class="col-md-3">
+                        <label for="search" class="form-label"></label>
+                        <input type="text" name="search" id="search" class="form-control" placeholder="Search by room name..." 
+                            value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="num_beds">Number of Beds:</label>
+                        <select name="num_beds" id="num_beds" class="form-control">
+                            <option value="">Any</option>
+                            <option value="1" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '1' ? 'selected' : ''; ?>>1</option>
+                            <option value="2" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '2' ? 'selected' : ''; ?>>2</option>
+                            <option value="3" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '3' ? 'selected' : ''; ?>>3</option>
+                            <option value="4" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '4' ? 'selected' : ''; ?>>4</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="capacity">Capacity:</label>
+                        <select name="capacity" id="capacity" class="form-control">
+                            <option value="">Any</option>
+                            <option value="1" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '1' ? 'selected' : ''; ?>>1</option>
+                            <option value="2" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '2' ? 'selected' : ''; ?>>2</option>
+                            <option value="3" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '3' ? 'selected' : ''; ?>>3</option>
+                            <option value="4" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '4' ? 'selected' : ''; ?>>4+</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="sort_order">Order by Price:</label>
+                        <select name="sort_order" id="sort_order" class="form-control">
+                            <option value="">Any</option>
+                            <option value="asc" <?php echo isset($_GET['sort_order']) && $_GET['sort_order'] == 'asc' ? 'selected' : ''; ?>>Low to High</option>
+                            <option value="desc" <?php echo isset($_GET['sort_order']) && $_GET['sort_order'] == 'desc' ? 'selected' : ''; ?>>High to Low</option>
+                        </select>
+                    </div> 
+                </div>                
+                <button type="submit" class="btn btn-primary mt-3">Apply Filters</button>
+                <!-- Clear Filters Button -->
+                <button type="reset" class="btn btn-secondary mt-3" onclick="window.location.href='filter_rooms.php';">Clear Filters</button>
+            </form>
+        </div>
+    </div>
+    <!-- End Filter Section -->
     
     <!-- Booking Details -->
     <div class="our_room">
-        <div class="container">
+        <div class="container">           
             <div class="row">
-                <div class="col-md-12">
-                    <div class="titlepage">
-                        <p>Arrival Date: <?php echo $arrival; ?></p>
-                        <p>Departure Date: <?php echo $departure; ?></p>                        
-                        <div style="height: 40px;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <?php output_available_rooms($arrival, $departure); ?>
+                <?php 
+                // Get filter values from the URL parameters
+                $arrival = isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : 'Not provided';
+                $departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : 'Not provided';
+                $room_type = isset($_GET['room_type']) ? htmlspecialchars($_GET['room_type']) : '';
+                $num_beds = isset($_GET['num_beds']) ? htmlspecialchars($_GET['num_beds']) : '';
+                $capacity = isset($_GET['capacity']) ? htmlspecialchars($_GET['capacity']) : '';
+                $price_per_night = isset($_GET['price_per_night']) ? htmlspecialchars($_GET['price_per_night']) : '';
+
+                // Pass filter values to the function
+                output_available_rooms($arrival, $departure); 
+                ?>
             </div>
         </div>
     </div>
