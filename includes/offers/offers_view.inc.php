@@ -46,7 +46,7 @@ function output_special_offers() {
     }
 }
 
-function output_the_offer() {
+function output_the_offer($arrival, $departure) {
     if (isset($_SESSION['special_offer'])) {
         $special_offer = $_SESSION['special_offer'];
 
@@ -58,12 +58,12 @@ function output_the_offer() {
         echo "</div>";
         echo "</div>";
 
-        if(isset($_SESSION['offer_rooms'])) {
-
+        if (isset($_SESSION['offer_rooms'])) {
             $offer_rooms = $_SESSION['offer_rooms'];
+
             // Display the available rooms
             foreach ($offer_rooms as $room) {
-                echo '<div class="room-details">';
+                echo '<div class="room-details" style="margin-right:10px;">'; // Add vertical space here
                 if (!empty($room['Image'])) {
                     $imageSrc = htmlspecialchars($room['Image']); // Sanitize the image path
                     echo '<div class="room-image-container">';
@@ -74,28 +74,44 @@ function output_the_offer() {
                     echo '<img class="room-image" src="images/placeholder.jpg" alt="No Image Available" />';
                     echo '</div>';
                 }
-                
+
                 echo '<div class="room-info">';
                 echo '<h2>' . htmlspecialchars($room['RoomName']) . '</h3>';
                 echo '<h3>' . "Room Type: " . htmlspecialchars($room['RoomType']) . '</h3>';
                 echo '<h3>' . "Number Of Beds: " . htmlspecialchars($room['NumOfBeds']) . '</h3>';
                 echo '<h3>' . "Capacity: " . htmlspecialchars($room['Capacity']) . '</h3>';
-                
+
                 if ($room['HasHotTub'] == 1) {
                     echo '<h3 class="hot-tub">Hot Tub Included</h3>';
                 }
+
+                // Convert arrival and departure to DateTime objects
+                $arrivalDate = new DateTime($arrival);
+                $departureDate = new DateTime($departure);
+
+                // Calculate the difference in days between check-in and check-out
+                $stayDuration = $departureDate->diff($arrivalDate)->days;
+        
+                // Inside your current code:
+                echo '<form action="includes/offers/make_special_resrv.inc.php" method="POST">';
+                echo '<input type="hidden" name="room_id" value="' . htmlspecialchars($room['RoomID']) . '">';
+                echo '<input type="hidden" name="user_id" value="' . $_SESSION["user_id"] . '">';
+                echo '<input type="hidden" name="offer_id" value="' . htmlspecialchars($special_offer['SpecialOfferID']) . '">';
+                echo '<input type="hidden" name="arrival" value="' . htmlspecialchars($arrival) . '">';
+                echo '<input type="hidden" name="departure" value="' . htmlspecialchars($departure) . '">';    
+                echo '<input type="hidden" name="totalCost" value="' . htmlspecialchars($stayDuration * $room['PricePerNight']) . '">';
+
+                echo '<button type="submit" class="btn btn-primary">Book Now</button>';
+                echo '</form>';
+
                 echo '</div>';
                 echo '</div>';
             }
-        }
-        else {
+        } else {
             echo 'No available Rooms';
         }
-    
-        
-    }     
-    else {
+
+    } else {
         echo 'No available Offers found.';
     }
-    
 }

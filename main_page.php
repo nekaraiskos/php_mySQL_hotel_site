@@ -458,7 +458,7 @@
                      <li class="active"><a href="#">Home</a></li>
                      <li><a href="about.html"> about</a></li>
                      <li><a href="get_all_rooms.php">Our Rooms</a></li>
-                     <li><a href="specialOffers.html">Special Offers</a></li>
+                     <li><a href="get_all_offers.php">Special Offers</a></li>
                      <li><a href="get_services.php">Services</a></li>
                      <li><a href="contact.html">Contact Us</a></li>
                   </ul>

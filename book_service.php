@@ -1,8 +1,52 @@
 <?php
 session_start(); // Start session to access session variables
 
-require_once 'includes/offers/offers_view.inc.php';
-$user_id = $_SESSION["user_id"];
+require_once "includes/dbh.inc.php";     // Connect to the database.        
+require_once "includes/services/services_view.inc.php";
+require_once "includes/services/services_model.inc.php";
+
+// Ensure the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Retrieve the form data
+    $service_id = isset($_POST['service_id']) ? $_POST['service_id'] : '';
+    $type = isset($_POST['type']) ? $_POST['type'] : '';
+    $num_people = isset($_POST['num_people']) ? intval($_POST['num_people']) : 0;
+    $appointed_time = isset($_POST['appointed_time']) ? $_POST['appointed_time'] : '';    
+
+    if ($service_id == '' || $type == '' || $num_people == 0 || $appointed_time == '') {
+        // ERROR
+        header('Location: ../../services_details.php');
+        exit();
+    }
+
+    $_SESSION["service_id"] = $service_id;
+    $_SESSION["type"] = $type;
+    $_SESSION["num_people"] = $num_people;
+    $_SESSION["appointed_time"] = $appointed_time;
+
+    $curr_service = get_service($pdo, $service_id, $type);
+    $_SESSION["curr_service"] = $curr_service;
+} else {
+    // Error!!!
+    header('Location: ../../services_details.php');
+    exit();
+ }
+
+// $service_id = isset($_SESSION['service_id']) ? $_SESSION['service_id'] : 'Not provided';
+// $type = isset($_SESSION['type']) ? $_SESSION['type'] : 'Not provided';
+// $num_people = isset($_SESSION['num_people']) ? $_SESSION['num_people'] : 'Not provided';
+// $appointed_time = isset($_SESSION['appointed_time']) ? $_SESSION['appointed_time'] : 'Not provided';
+// $curr_service = isset($_SESSION['curr_service']) ? $_SESSION['curr_service'] : 'Not provided';
+
+// $user_id = $_SESSION["user_id"];
+
+// if ($curr_service == 'Not provided') {
+    
+//     // !!!!!! ERROR MESSAGE !!!!!!
+//     // Redirect to a new page with filter parameters
+//     header("Location: services.php");
+//     exit(); // Make sure to exit after redirect
+// }
 ?>
 
 <!DOCTYPE html>
@@ -76,13 +120,13 @@ $user_id = $_SESSION["user_id"];
                               <a class="nav-link" href="about.html">About</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="get_all_rooms.php">Our rooms</a>
-                           </li>
-                           <li class="nav-item active">
-                              <a class="nav-link" href="get_all_offers.php">Special Offers</a>
+                              <a class="nav-link" href="get_all_rooms.php">Our Rooms</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="get_services.php">Services</a>
+                              <a class="nav-link" href="get_all_offers.php">Special Offers</a>
+                           </li>
+                           <li class="nav-item active">
+                              <a class="nav-link" href="services.php">Services</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="contact.html">Contact Us</a>
@@ -101,22 +145,21 @@ $user_id = $_SESSION["user_id"];
       <div class="container">
          <div class="row">
             <div class="col-md-12">
-               <div class="title">
-                  <h2>Special Offers</h2>
+                <div class="title">
+                    <?php                
+                        echo "<h2> Book Service Now</h2>";                    
+                    ?>            
                </div>
             </div>
          </div>
       </div>
    </div>
-   <!-- Special Offers -->
-   <div class="specialOffers">
-      <div class="container">
-         <div class="row">
-            <?php output_special_offers();?>            
-         </div>
-      </div>
-   </div>
-   <!-- end specialOffers -->
+
+   <!-- Booking Details -->
+   <?php 
+    output_booking_service($service_id, $type, $num_people, $appointed_time, $curr_service);  
+   ?>               
+    <!-- end Booking Details -->
 
    <!--  footer -->
    <footer>
@@ -137,8 +180,8 @@ $user_id = $_SESSION["user_id"];
                      <li><a href="#">Home</a></li>
                      <li><a href="about.html"> about</a></li>
                      <li><a href="get_all_rooms.php">Our Rooms</a></li>
-                     <li class="active"><a href="get_all_offers.php">Special Offers</a></li>
-                     <li><a href="services.php">Services</a></li>
+                     <li><a href="get_all_offers.php">Special Offers</a></li>
+                     <li class="active"><a href="services.php">Services</a></li>
                      <li><a href="contact.html">Contact Us</a></li>
                   </ul>
                </div>

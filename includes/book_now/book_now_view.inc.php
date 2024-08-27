@@ -54,15 +54,6 @@ function output_available_rooms($arrival, $departure) {
 function output_room_info($curr_room, $arrival, $departure, $user_id) {
     echo '<div class="room-details">';
 
-    // Display image
-    // if (!empty($curr_room['Image'])) {
-    //     // Use the relative path stored in the database
-    //     $imageSrc = htmlspecialchars($curr_room['Image']);
-    //     echo "<figure><img src='" . $imageSrc . "' alt='Room Image' /></figure>";
-    // } else {
-    //     echo '<p>No image available.</p>';
-    // }
-
      // Display the room image using the file path stored in the database
     if (!empty($curr_room['Image'])) {
         $imageSrc = htmlspecialchars($curr_room['Image']); // Sanitize the image path

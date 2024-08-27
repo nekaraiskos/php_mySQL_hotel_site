@@ -79,7 +79,7 @@ $user_id = $_SESSION["user_id"];
                               <a class="nav-link" href="get_all_rooms.php">Our Rooms</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="specialOffers.html">Special Offers</a>
+                              <a class="nav-link" href="get_all_offers.php">Special Offers</a>
                            </li>
                            <li class="nav-item active">
                               <a class="nav-link" href="services.php">Services</a>
@@ -204,7 +204,7 @@ $user_id = $_SESSION["user_id"];
                      <li><a href="#">Home</a></li>
                      <li><a href="about.html"> about</a></li>
                      <li><a href="get_all_rooms.php">Our Rooms</a></li>
-                     <li><a href="specialOffers.html">Special Offers</a></li>
+                     <li><a href="get_all_offers.php">Special Offers</a></li>
                      <li class="active"><a href="services.php">Services</a></li>
                      <li><a href="contact.html">Contact Us</a></li>
                   </ul>

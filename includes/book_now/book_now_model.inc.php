@@ -6,8 +6,12 @@ function get_available_rooms($pdo, $arrival, $departure, $room_type, $num_beds, 
         // Step 1: Find all room IDs that are already booked during the given period
         $query = "
             SELECT FK2_RoomID 
-            FROM makes_simple_resrv 
-            WHERE !(:departure <= CheckIn OR :arrival >=CheckOut)            
+            FROM makes_simple_resrv
+            WHERE NOT (:departure <= CheckIn OR :arrival >= CheckOut)
+            UNION
+            SELECT FK2_RoomID 
+            FROM makes_special_resrv
+            WHERE NOT (:departure <= CheckIn OR :arrival >= CheckOut)
         ";
 
         $stmt = $pdo->prepare($query);
@@ -81,7 +85,6 @@ function get_all_rooms($pdo) {
     $availableRooms = $stmt->fetchAll(PDO::FETCH_ASSOC);   
     return $availableRooms;
 }
-
 
 function get_room($pdo, $room_id) {
     $query = "SELECT * FROM room WHERE RoomID = :room_id";

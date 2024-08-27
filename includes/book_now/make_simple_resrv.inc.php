@@ -31,35 +31,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 }
-
-
-// // Check if the form was submitted
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//     // Get the data from the form
-//     $user_id = $_POST['user_id'];
-//     $room_id = $_POST['room_id'];
-//     $arrival = $_POST['arrival'];
-//     $departure = $_POST['departure'];    
-//     $totalCost = $_POST['totalCost'];
-
-//     // Insert the reservation into the makes_simple_resrv table
-//     $query = "INSERT INTO makes_simple_resrv (FullPrice, CheckIn, CheckOut, FK1_CustomerID, FK2_RoomID)    
-//               VALUES (:fullPrice, :checkIn, :checkOut, :fK1_CustomerID, :fK2_RoomID);";
-
-//     $stmt = $pdo->prepare($query);    
-//     $stmt->bindParam(':fullPrice', $totalCost);
-//     $stmt->bindParam(':checkIn', $arrival);
-//     $stmt->bindParam(':checkOut', $departure);
-//     $stmt->bindParam(':fK1_CustomerID', $user_id);
-//     $stmt->bindParam(':fK2_RoomID', $room_id);
-    
-//     // Execute the query
-//     if ($stmt->execute()) {
-//         echo "Reservation successful!";
-//     } else {
-//         echo "There was an error with your reservation.";
-//     }
-// }
-
-
-
