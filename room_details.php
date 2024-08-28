@@ -5,12 +5,12 @@ require_once "includes/dbh.inc.php";     // Connect to the database.
 require_once "includes/book_now/book_now_view.inc.php";
 require_once "includes/book_now/book_now_model.inc.php";
 
-$arrival = isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : 'Not provided';
-$departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : 'Not provided';
-$room_id = isset($_GET['room_id']) ? htmlspecialchars($_GET['room_id']) : 'Not provided';
+$arrival = isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : null;
+$departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : null;
+$room_id = isset($_GET['room_id']) ? htmlspecialchars($_GET['room_id']) : null;
 $user_id = $_SESSION["user_id"];
 
-if ($arrival == 'Not provided' || $departure == 'Not provided' || $room_id == 'Not provided') {
+if ($arrival == null || $departure == null || $room_id == null) {
     
     // !!!!!! ERROR MESSAGE !!!!!!
     // Redirect to a new page with filter parameters

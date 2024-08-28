@@ -8,12 +8,12 @@ require_once "includes/services/services_model.inc.php";
 // Ensure the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve the form data
-    $service_id = isset($_POST['service_id']) ? $_POST['service_id'] : '';
-    $type = isset($_POST['type']) ? $_POST['type'] : '';
+    $service_id = isset($_POST['service_id']) ? $_POST['service_id'] : null;
+    $type = isset($_POST['type']) ? $_POST['type'] : null;
     $num_people = isset($_POST['num_people']) ? intval($_POST['num_people']) : 0;
-    $appointed_time = isset($_POST['appointed_time']) ? $_POST['appointed_time'] : '';    
+    $appointed_time = isset($_POST['appointed_time']) ? $_POST['appointed_time'] : null;    
 
-    if ($service_id == '' || $type == '' || $num_people == 0 || $appointed_time == '') {
+    if ($service_id == null || $type == null || $num_people == 0 || $appointed_time == null) {
         // ERROR
         header('Location: ../../services_details.php');
         exit();

@@ -3,13 +3,13 @@
 session_start(); // Ensure session is started
 
 // Retrieve form data
-$arrival = isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : '';
-$departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : '';
-$room_type = isset($_GET['room_type']) ? htmlspecialchars($_GET['room_type']) : '';
-$num_beds = isset($_GET['num_beds']) ? htmlspecialchars($_GET['num_beds']) : '';
-$capacity = isset($_GET['capacity']) ? htmlspecialchars($_GET['capacity']) : '';
-$sort_order = isset($_GET['sort_order']) ? htmlspecialchars($_GET['sort_order']) : '';
-$search = isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '';
+$arrival = isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : null;
+$departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : null;
+$room_type = isset($_GET['room_type']) ? htmlspecialchars($_GET['room_type']) : null;
+$num_beds = isset($_GET['num_beds']) ? htmlspecialchars($_GET['num_beds']) : null;
+$capacity = isset($_GET['capacity']) ? htmlspecialchars($_GET['capacity']) : null;
+$sort_order = isset($_GET['sort_order']) ? htmlspecialchars($_GET['sort_order']) : null;
+$search = isset($_GET['search']) ? htmlspecialchars($_GET['search']) : null;
 
 try {
     require_once "includes/dbh.inc.php";     // Connect to the database.

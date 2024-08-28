@@ -5,7 +5,7 @@
    //session_start(); // Make sure the session is started
 
    // Check if the user is logged in
-   $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+   $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 ?>
 
 <!DOCTYPE html>

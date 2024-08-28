@@ -66,8 +66,9 @@ function get_room($pdo, $room_id) {
 }
 
 function get_offer_available_rooms($pdo, $offer_id, $arrival, $departure, $room_type, $num_beds, $capacity, $sort_order, $search) {
+    $params = [];
+
     // Step 1: Find all room IDs that are already booked during the given period    
-    
     if ($arrival != "" && $departure != "") {
         $query = "
             SELECT FK2_RoomID 
@@ -87,7 +88,7 @@ function get_offer_available_rooms($pdo, $offer_id, $arrival, $departure, $room_
         $bookedRooms = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);  // Fetch only the room IDs
     }
     else {
-        $bookedRooms = "";
+        $bookedRooms = [];
     }
 
     // Step 2: Find all RoomIDs associated with the given SpecialOfferID
@@ -106,19 +107,27 @@ function get_offer_available_rooms($pdo, $offer_id, $arrival, $departure, $room_
     // Step 3: Build the base query
     $query = "SELECT * FROM room";
     $conditions = [];
-    $params = [];
 
     // Filter to include only rooms associated with the special offer
     if (!empty($offerRooms)) {
-        $placeholders = rtrim(str_repeat('?,', count($offerRooms)), ',');
-        $conditions[] = "RoomID IN ($placeholders)";
-        $params = array_merge($params, $offerRooms);
+        $placeholders = [];
+        foreach ($offerRooms as $index => $roomID) {
+            $placeholder = ":offerRoom_$index";
+            $placeholders[] = $placeholder;
+            $params[$placeholder] = $roomID;
+        }
+        $conditions[] = "RoomID IN (" . implode(', ', $placeholders) . ")";
     }
+    
     // Exclude booked rooms if any
     if (!empty($bookedRooms)) {
-        $placeholders = rtrim(str_repeat('?,', count($bookedRooms)), ',');
-        $conditions[] = "RoomID NOT IN ($placeholders)";
-        $params = array_merge($params, $bookedRooms);
+        // Use named placeholders for the NOT IN clause
+        $placeholders = [];
+        foreach ($bookedRooms as $index => $roomID) {
+            $placeholders[] = ":roomID_$index";
+            $params[":roomID_$index"] = $roomID;
+        }
+        $conditions[] = "RoomID NOT IN (" . implode(', ', $placeholders) . ")";
     }
 
     // Apply filters if provided
@@ -154,17 +163,12 @@ function get_offer_available_rooms($pdo, $offer_id, $arrival, $departure, $room_
     // Prepare and execute the query
     $stmt = $pdo->prepare($query);
 
-    // Bind the named parameters
-    foreach ($params as $key => $value) {
-        $stmt->bindValue(is_int($key) ? ($key + 1) : $key, $value);
-    }
-
-    $stmt->execute();
+    // Bind all parameters directly in the execute() method
+    $stmt->execute($params);
 
     $availableRooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $availableRooms;
 }
-
 
 
 function make_special_resrv($pdo, $user_id, $room_id, $offer_id, $arrival, $departure, $totalCost) {
