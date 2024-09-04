@@ -5,7 +5,7 @@
    //session_start(); // Make sure the session is started
 
    // Check if the user is logged in
-   $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+   $username = isset($_SESSION['user_username']) ? $_SESSION['user_username'] : null;;
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +59,7 @@
                   <div class="full">
                      <div class="center-desk">
                         <div class="logo">
-                           <a href="main_page.php"><img src="images/logo.png" alt="#" /></a>
+                           <a href="main_page.php"><img src="images/my_logo.png" alt="#" /></a>
                         </div>
                      </div>
                   </div>
@@ -77,33 +77,34 @@
                               <a class="nav-link" href="main_page.php">Home</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="about.html">About</a>
-                           </li>
-                           <li class="nav-item">
                               <a class="nav-link" href="get_all_rooms.php">Our&nbsp;rooms</a>
+                           </li>                           
+                           <li class="nav-item">
+                              <a class="nav-link" href="get_services.php">Services</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="get_all_offers.php">Special&nbsp;Offers</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="get_services.php">Services</a>
-                           </li>
-                           <li class="nav-item">
                               <a class="nav-link" href="contact.html">Contact&nbsp;Us</a>
                            </li>
+                           <li class="nav-item">                              
+                              <span class="nav-link" style="color: #a8a6a5; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); font-family: 'Garamond', serif;"><?php echo htmlspecialchars($username); ?></span>
+                           </li>
+                           <li class="nav-item">
+                              <form class="form-inline" action="includes/logout/logout.inc.php" method="post">
+                                 <button class="btn btn-danger ml-2" type="submit" style="margin-top: -20px;">Logout</button>
+                              </form>
+                           </li>
                         </ul>
-                        <ul class="navbar-nav ml-auto d-flex align-items-center">
-                           <?php if (!empty($userId)): ?>
-                              <li class="nav-item">
-                                 <span class="navbar-text" style="color: #FFD700;">User ID: <?php echo htmlspecialchars($userId); ?></span> <!-- Change color here -->
-                              </li>
+                        <!-- <ul class="navbar-nav ml-auto d-flex align-items-center">
+                              
                               <li class="nav-item">
                                  <form class="form-inline" action="includes/logout/logout.inc.php" method="post">
                                     <button class="btn btn-danger ml-2" type="submit">Logout</button>
                                  </form>
                               </li>
-                           <?php endif; ?>
-                        </ul>
+                        </ul> -->
                      </div>
                   </nav>
 
@@ -125,15 +126,15 @@
          </ol>
          <div class="carousel-inner">
             <div class="carousel-item active">
-               <img class="first-slide" src="images/banner1.jpg" alt="First slide">
+               <img class="first-slide" src="images/hotel_swiss.jpg" alt="First slide">
                <div class="container">
                </div>
             </div>
             <div class="carousel-item">
-               <img class="second-slide" src="images/banner2.jpg" alt="Second slide">
+               <img class="second-slide" src="images/please.jpg" alt="Second slide">
             </div>
             <div class="carousel-item">
-               <img class="third-slide" src="images/banner3.jpg" alt="Third slide">
+               <img class="third-slide" src="images/interrior.jpg" alt="Third slide">
             </div>
          </div>
          <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
@@ -185,214 +186,18 @@
             <div class="col-md-5">
                <div class="titlepage">
                   <h2>About Us</h2>
-                  <p>The passage experienced a surge in popularity during the 1960s when Letraset used it on their
-                     dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their
-                     software. Today it's seen all around the web; on templates, websites, and stock designs. Use our
-                     generator to get your own, or read on for the authoritative history of lorem ipsum. </p>
-                  <a class="read_more" href="Javascript:void(0)"> Read More</a>
+                  <p>Welcome to Mt. Getaway, a premier luxury ski resort nestled in stunning snow-covered mountains. Our resort offers an unparalleled blend of adventure and relaxation, perfect for the ultimate winter escape. Whether you're here to conquer the slopes or unwind in style, Mt. Getaway promises a memorable experience with luxurious accommodations and exceptional service tailored just for you.</p>
                </div>
             </div>
             <div class="col-md-7">
                <div class="about_img">
-                  <figure><img src="images/about.png" alt="#" /></figure>
+                  <figure><img src="images/about.webp" alt="#" /></figure>
                </div>
             </div>
          </div>
       </div>
    </div>
    <!-- end about -->
-   <!-- our_room -->
-   <div class="our_room">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="titlepage">
-                  <h2>Our Rooms</h2>
-                  <p>Lorem Ipsum available, but the majority have suffered </p>
-               </div>
-            </div>
-         </div>
-         <div class="row">
-            <div class="col-md-4 col-sm-6">
-               <div id="serv_hover" class="room">
-                  <div class="room_img">
-                     <figure><img src="images/room1.jpg" alt="#" /></figure>
-                  </div>
-                  <div class="bed_room">
-                     <h3>Bed Room</h3>
-                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-               <div id="serv_hover" class="room">
-                  <div class="room_img">
-                     <figure><img src="images/room2.jpg" alt="#" /></figure>
-                  </div>
-                  <div class="bed_room">
-                     <h3>Bed Room</h3>
-                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-               <div id="serv_hover" class="room">
-                  <div class="room_img">
-                     <figure><img src="images/room3.jpg" alt="#" /></figure>
-                  </div>
-                  <div class="bed_room">
-                     <h3>Bed Room</h3>
-                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-               <div id="serv_hover" class="room">
-                  <div class="room_img">
-                     <figure><img src="images/room4.jpg" alt="#" /></figure>
-                  </div>
-                  <div class="bed_room">
-                     <h3>Bed Room</h3>
-                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-               <div id="serv_hover" class="room">
-                  <div class="room_img">
-                     <figure><img src="images/room5.jpg" alt="#" /></figure>
-                  </div>
-                  <div class="bed_room">
-                     <h3>Bed Room</h3>
-                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-               <div id="serv_hover" class="room">
-                  <div class="room_img">
-                     <figure><img src="images/room6.jpg" alt="#" /></figure>
-                  </div>
-                  <div class="bed_room">
-                     <h3>Bed Room</h3>
-                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there </p>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- end our_room -->
-   <!-- Speacial Offers -->
-   <div class="specialoffers">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="titlepage">
-                  <h2>Special Offers</h2>
-               </div>
-            </div>
-         </div>
-         <div class="row">
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers1.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers2.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers3.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers4.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers5.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers6.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers7.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers8.jpg" alt="#" /></figure>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- end specialOffers -->
-   <!-- services -->
-   <div class="services">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="titlepage">
-                  <h2>Services</h2>
-                  <p>Lorem Ipsum available, but the majority have suffered </p>
-               </div>
-            </div>
-         </div>
-         <div class="row">
-            <div class="col-md-4">
-               <div class="services_box">
-                  <div class="services_img">
-                     <figure><img src="images/services1.jpg" alt="#" /></figure>
-                  </div>
-                  <div class="services_room">
-                     <h3>Bed Room</h3>
-                     <span>The standard chunk </span>
-                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything
-                        embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you are </p>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-4">
-               <div class="services_box">
-                  <div class="services_img">
-                     <figure><img src="images/services2.jpg" alt="#" /></figure>
-                  </div>
-                  <div class="services_room">
-                     <h3>Bed Room</h3>
-                     <span>The standard chunk </span>
-                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything
-                        embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you are </p>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-4">
-               <div class="services_box">
-                  <div class="services_img">
-                     <figure><img src="images/services3.jpg" alt="#" /></figure>
-                  </div>
-                  <div class="services_room">
-                     <h3>Bed Room</h3>
-                     <span>The standard chunk </span>
-                     <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything
-                        embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you are </p>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- end services -->
    <!--  contact -->
    <div class="contact">
       <div class="container">
@@ -429,7 +234,7 @@
                <div class="map_main">
                   <div class="map-responsive">
                      <iframe
-                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=Eiffel+Tower+Paris+France"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d933392.9176253034!2d5.22192932269504!3d46.511195236639146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e6262ac975f05%3A0xe571815fbbc34f93!2sH%C3%B4tel%20des%20Alpes!5e0!3m2!1sel!2sgr!4v1725097447838!5m2!1sel!2sgr"                        
                         width="600" height="400" frameborder="0" style="border:0; width: 100%;"
                         allowfullscreen=""></iframe>
                   </div>
@@ -456,10 +261,9 @@
                   <h3>Menu Link</h3>
                   <ul class="link_menu">
                      <li class="active"><a href="#">Home</a></li>
-                     <li><a href="about.html"> about</a></li>
                      <li><a href="get_all_rooms.php">Our Rooms</a></li>
-                     <li><a href="get_all_offers.php">Special Offers</a></li>
                      <li><a href="get_services.php">Services</a></li>
+                     <li><a href="get_all_offers.php">Special Offers</a></li>                     
                      <li><a href="contact.html">Contact Us</a></li>
                   </ul>
                </div>

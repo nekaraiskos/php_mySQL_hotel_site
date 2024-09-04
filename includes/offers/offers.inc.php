@@ -10,9 +10,11 @@ try {
 
     $special_offer = get_special_offer($pdo, $offer_id);
     $offer_rooms = get_offer_rooms($pdo, $offer_id);
+    $service_name = get_service_name($pdo, $special_offer['ServiceID']);
 
     $_SESSION['special_offer'] = $special_offer;
     $_SESSION['offer_rooms'] = $offer_rooms;
+    $_SESSION['service_name'] = $service_name;
 
     // Redirect to a new page with filter parameters
     header("Location: ../../offer_page.php");

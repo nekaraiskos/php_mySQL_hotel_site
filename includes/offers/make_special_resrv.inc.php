@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $departure = $_POST['departure'];    
     $totalCost = $_POST['totalCost'];
 
-    if ($arrival == "" || $departure = "" || $totalCost = "") {
+    if ($arrival == "" || $departure == "" || $totalCost == "") {
         header('Location: ../../offer_page.php');
         exit();
     }

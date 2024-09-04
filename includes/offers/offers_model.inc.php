@@ -55,14 +55,19 @@ function get_offer_rooms($pdo, $offer_id) {
     return $rooms;
 }
 
-function get_room($pdo, $room_id) {
-    $query = "SELECT * FROM room WHERE RoomID = :room_id";
+function get_service_name($pdo, $service_id) {
+    $query = "SELECT ServiceName FROM service WHERE ServiceID = :service_id";
     $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':room_id', $room_id, PDO::PARAM_INT);    
+    $stmt->bindParam(':service_id', $service_id, PDO::PARAM_INT);    
     $stmt->execute();
     
-    $curr_room = $stmt->fetch(PDO::FETCH_ASSOC);   
-    return $curr_room;
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if ($result) {
+        return $result['ServiceName'];
+    } else {
+        return null; // or handle the case where the service is not found
+    }
 }
 
 function get_offer_available_rooms($pdo, $offer_id, $arrival, $departure, $room_type, $num_beds, $capacity, $sort_order, $search) {
@@ -170,7 +175,6 @@ function get_offer_available_rooms($pdo, $offer_id, $arrival, $departure, $room_
     return $availableRooms;
 }
 
-
 function make_special_resrv($pdo, $user_id, $room_id, $offer_id, $arrival, $departure, $totalCost) {
     // Insert the reservation into the makes_special_resrv table
     $query = "
@@ -196,4 +200,25 @@ function make_special_resrv($pdo, $user_id, $room_id, $offer_id, $arrival, $depa
     } else {
         return -1; // Failure
     }
+}
+
+function get_search_offers($pdo, $search) {
+
+    // Prepare the SQL query with a placeholder for the search term
+    $sql = "SELECT * FROM special_offer WHERE Description LIKE :search";
+    
+    // Prepare the statement
+    $stmt = $pdo->prepare($sql);
+    
+    // Bind the search term with wildcards for partial matching
+    $stmt->bindValue(':search', '%' . $search . '%');
+    
+    // Execute the query
+    $stmt->execute();
+    
+    // Fetch all the results
+    $offers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // Return the results
+    return $offers;
 }
