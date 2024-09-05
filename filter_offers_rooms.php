@@ -11,18 +11,20 @@ $capacity = isset($_GET['capacity']) ? htmlspecialchars($_GET['capacity']) : nul
 $sort_order = isset($_GET['sort_order']) ? htmlspecialchars($_GET['sort_order']) : null;
 $search = isset($_GET['search']) ? htmlspecialchars($_GET['search']) : null;
 
+$special_offer = $_SESSION['special_offer'];
+
 try {
     require_once "includes/dbh.inc.php";     // Connect to the database.
-    require_once "includes/book_now/book_now_model.inc.php";
+    require_once "includes/offers/offers_model.inc.php";
 
     // Call the function to get available rooms
-    $availableRooms = get_available_rooms($pdo, $arrival, $departure, $room_type, $num_beds, $capacity, $sort_order, $search);
-          
+    $availableRooms = get_offer_available_rooms($pdo, $special_offer['SpecialOfferID'] ,$arrival, $departure, $room_type, $num_beds, $capacity, $sort_order, $search);
+
     // Store the available rooms in the session
-    $_SESSION['available_rooms'] = $availableRooms;
+    $_SESSION['offer_rooms'] = $availableRooms;
 
     // Redirect to a new page with filter parameters
-    header("Location: room.php?arrival=" . urlencode($arrival) . "&departure=" . urlencode($departure) . "&room_type=" . urlencode($room_type) . "&num_beds=" . urlencode($num_beds) . "&capacity=" . urlencode($capacity) . "&sort_order=" . urlencode($sort_order) . "&search=" . urlencode($search));
+    header("Location: offer_page.php?arrival=" . urlencode($arrival) . "&departure=" . urlencode($departure) . "&room_type=" . urlencode($room_type) . "&num_beds=" . urlencode($num_beds) . "&capacity=" . urlencode($capacity) . "&sort_order=" . urlencode($sort_order) . "&search=" . urlencode($search));
     exit(); // Make sure to exit after redirect
 
 } catch (PDOException $e) {

@@ -129,5 +129,94 @@ function get_all_activities($pdo) {
 
     return $activities;
 }
-function get_all_wellness($pdo) {}
-function get_all_culinary($pdo) {}
+
+function get_all_wellness($pdo) {
+    // Step 1: Retrieve all records from the wellness table and 
+    // their corresponding data from the service table
+    $sql = "
+        SELECT wellness.*, service.*
+        FROM wellness
+        JOIN service ON wellness.ServiceID = service.ServiceID
+    ";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    // Fetch all combined activity and service records
+    $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $services;
+}
+
+function get_all_culinary($pdo) {
+    // Step 1: Retrieve all records from the culinary_experience table and 
+    // their corresponding data from the service table
+    $sql = "
+        SELECT culinary_experience.*, service.*
+        FROM culinary_experience
+        JOIN service ON culinary_experience.ServiceID = service.ServiceID
+    ";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    // Fetch all combined activity and service records
+    $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $services;
+}
+
+function get_service($pdo, $service_id, $type) {    
+    if ($type == "Activities") {
+        $sql = "
+            SELECT activity.*, service.*
+            FROM activity
+            JOIN service ON activity.ServiceID = service.ServiceID
+            WHERE activity.ServiceID = :service_id
+        ";
+    }
+    else if ($type == "Wellness") {
+        $sql = "
+            SELECT wellness.*, service.*
+            FROM wellness
+            JOIN service ON wellness.ServiceID = service.ServiceID
+            WHERE wellness.ServiceID = :service_id
+        ";
+    }
+    else if ($type == "Culinary") {
+        $sql = "
+            SELECT culinary_experience.*, service.*
+            FROM culinary_experience
+            JOIN service ON culinary_experience.ServiceID = service.ServiceID
+            WHERE culinary_experience.ServiceID = :service_id
+        ";
+    }
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':service_id', $service_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $service = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $service;
+}
+
+function book_service($pdo, $user_id, $service_id, $num_people, $appointed_time, $full_price) {
+    
+    $query = "INSERT INTO book_service (AppointedTime, 	NumOfPeople, FullPrice, FK1_CustomerID, FK2_ServiceID)    
+            VALUES (:appointed_time, :num_people, :full_price, :fK1_CustomerID, :fK2_ServiceID);";
+
+    $stmt = $pdo->prepare($query);    
+    $stmt->bindParam(':appointed_time', $appointed_time);
+    $stmt->bindParam(':num_people', $num_people);
+    $stmt->bindParam(':full_price', $full_price);
+    $stmt->bindParam(':fK1_CustomerID', $user_id);
+    $stmt->bindParam(':fK2_ServiceID', $service_id);
+    
+    // Execute the query
+    if ($stmt->execute()) {
+        return 1;
+    } else {
+        return -1;
+    }
+}

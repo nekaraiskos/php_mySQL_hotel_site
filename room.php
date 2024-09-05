@@ -3,6 +3,10 @@ session_start(); // Start session to access session variables
 
 require_once 'includes/book_now/book_now_view.inc.php';
 $user_id = $_SESSION["user_id"];
+$username = isset($_SESSION['user_username']) ? $_SESSION['user_username'] : null;;
+
+$arrival = isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : null;
+$departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : null;
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +58,7 @@ $user_id = $_SESSION["user_id"];
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="main_page.php"><img src="images/logo.png" alt="#" /></a>
+                                    <a href="main_page.php"><img src="images/my_logo.png" alt="#" /></a>
                                 </div>
                             </div>
                         </div>
@@ -69,22 +73,27 @@ $user_id = $_SESSION["user_id"];
                                     <li class="nav-item ">
                                         <a class="nav-link" href="main_page.php">Home</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="about.html">About</a>
-                                    </li>
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="room.html">Our rooms</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="specialOffers.html">Special Offers</a>
-                                    </li>
+                                        <a class="nav-link" href="room.php">Our rooms</a>
+                                    </li>                                    
                                     <li class="nav-item">
                                         <a class="nav-link" href="get_services.php">Services</a>
                                     </li>
                                     <li class="nav-item">
+                                        <a class="nav-link" href="get_all_offers.php">Special Offers</a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a class="nav-link" href="contact.html">Contact Us</a>
                                     </li>
-                                </ul>                                
+                                    <li class="nav-item">                              
+                                        <span class="nav-link" style="color: #a8a6a5; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); font-family: 'Garamond', serif;"><?php echo htmlspecialchars($username); ?></span>
+                                    </li>
+                                    <li class="nav-item">
+                                        <form class="form-inline" action="includes/logout/logout.inc.php" method="post">
+                                            <button class="btn btn-danger ml-2" type="submit">Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>                               
                             </div>
                         </nav>
                     </div>
@@ -112,61 +121,59 @@ $user_id = $_SESSION["user_id"];
 
     <!-- Filter Section -->
     <div class="filter_section">
-        <div class="container">
-            <form method="GET" action="filter_rooms.php">
-                <input type="hidden" name="arrival" value="<?php echo htmlspecialchars($arrival); ?>">
-                <input type="hidden" name="departure" value="<?php echo htmlspecialchars($departure); ?>">
+        <div class="container">            
+            <form method="GET" action="filter_rooms.php">                
                 <div class="row">
                     <div class="col-md-3">
                         <label for="arrival">Arrival Date:</label>
-                        <input type="date" name="arrival" id="arrival" class="form-control" value="<?php echo isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : ''; ?>">
+                        <input type="date" name="arrival" id="arrival" class="form-control" value="<?php echo isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : null; ?>">
                     </div>
                     <div class="col-md-3">
                         <label for="departure">Departure Date:</label>
-                        <input type="date" name="departure" id="departure" class="form-control" value="<?php echo isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : ''; ?>">
+                        <input type="date" name="departure" id="departure" class="form-control" value="<?php echo isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : null; ?>">
                     </div>
                     <div class="col-md-3">
                         <label for="room_type">Room Type:</label>
                         <select name="room_type" id="room_type" class="form-control">
                             <option value="">Any</option>
-                            <option value="single" <?php echo isset($_GET['room_type']) && $_GET['room_type'] == 'single' ? 'selected' : ''; ?>>Single</option>
-                            <option value="double" <?php echo isset($_GET['room_type']) && $_GET['room_type'] == 'double' ? 'selected' : ''; ?>>Double</option>
-                            <option value="suite" <?php echo isset($_GET['room_type']) && $_GET['room_type'] == 'suite' ? 'selected' : ''; ?>>Suite</option>
+                            <option value="single" <?php echo isset($_GET['room_type']) && $_GET['room_type'] == 'single' ? 'selected' : null; ?>>Single</option>
+                            <option value="double" <?php echo isset($_GET['room_type']) && $_GET['room_type'] == 'double' ? 'selected' : null; ?>>Double</option>
+                            <option value="suite" <?php echo isset($_GET['room_type']) && $_GET['room_type'] == 'suite' ? 'selected' : null; ?>>Suite</option>
                         </select>
                     </div>
                     <!-- New Search Bar -->        
                     <div class="col-md-3">
                         <label for="search" class="form-label"></label>
                         <input type="text" name="search" id="search" class="form-control" placeholder="Search by room name..." 
-                            value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                            value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : null; ?>">
                     </div>
 
                     <div class="col-md-3">
                         <label for="num_beds">Number of Beds:</label>
                         <select name="num_beds" id="num_beds" class="form-control">
                             <option value="">Any</option>
-                            <option value="1" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '1' ? 'selected' : ''; ?>>1</option>
-                            <option value="2" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '2' ? 'selected' : ''; ?>>2</option>
-                            <option value="3" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '3' ? 'selected' : ''; ?>>3</option>
-                            <option value="4" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '4' ? 'selected' : ''; ?>>4</option>
+                            <option value="1" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '1' ? 'selected' : null; ?>>1</option>
+                            <option value="2" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '2' ? 'selected' : null; ?>>2</option>
+                            <option value="3" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '3' ? 'selected' : null; ?>>3</option>
+                            <option value="4" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '4' ? 'selected' : null; ?>>4</option>
                         </select>
                     </div>
                     <div class="col-md-3">
                         <label for="capacity">Capacity:</label>
                         <select name="capacity" id="capacity" class="form-control">
                             <option value="">Any</option>
-                            <option value="1" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '1' ? 'selected' : ''; ?>>1</option>
-                            <option value="2" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '2' ? 'selected' : ''; ?>>2</option>
-                            <option value="3" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '3' ? 'selected' : ''; ?>>3</option>
-                            <option value="4" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '4' ? 'selected' : ''; ?>>4+</option>
+                            <option value="1" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '1' ? 'selected' : null; ?>>1</option>
+                            <option value="2" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '2' ? 'selected' : null; ?>>2</option>
+                            <option value="3" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '3' ? 'selected' : null; ?>>3</option>
+                            <option value="4" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '4' ? 'selected' : null; ?>>4+</option>
                         </select>
                     </div>
                     <div class="col-md-3">
                         <label for="sort_order">Order by Price:</label>
                         <select name="sort_order" id="sort_order" class="form-control">
                             <option value="">Any</option>
-                            <option value="asc" <?php echo isset($_GET['sort_order']) && $_GET['sort_order'] == 'asc' ? 'selected' : ''; ?>>Low to High</option>
-                            <option value="desc" <?php echo isset($_GET['sort_order']) && $_GET['sort_order'] == 'desc' ? 'selected' : ''; ?>>High to Low</option>
+                            <option value="asc" <?php echo isset($_GET['sort_order']) && $_GET['sort_order'] == 'asc' ? 'selected' : null; ?>>Low to High</option>
+                            <option value="desc" <?php echo isset($_GET['sort_order']) && $_GET['sort_order'] == 'desc' ? 'selected' : null; ?>>High to Low</option>
                         </select>
                     </div> 
                 </div>                
@@ -182,17 +189,9 @@ $user_id = $_SESSION["user_id"];
     <div class="our_room">
         <div class="container">           
             <div class="row">
-                <?php 
-                // Get filter values from the URL parameters
-                $arrival = isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : 'Not provided';
-                $departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : 'Not provided';
-                $room_type = isset($_GET['room_type']) ? htmlspecialchars($_GET['room_type']) : '';
-                $num_beds = isset($_GET['num_beds']) ? htmlspecialchars($_GET['num_beds']) : '';
-                $capacity = isset($_GET['capacity']) ? htmlspecialchars($_GET['capacity']) : '';
-                $price_per_night = isset($_GET['price_per_night']) ? htmlspecialchars($_GET['price_per_night']) : '';
-
+                <?php                 
                 // Pass filter values to the function
-                output_available_rooms($arrival, $departure); 
+                output_available_rooms($arrival, $departure);                 
                 ?>
             </div>
         </div>
@@ -201,58 +200,59 @@ $user_id = $_SESSION["user_id"];
 
     <!--  footer -->
     <footer>
-        <div class="footer">
+      <div class="footer">
+         <div class="container">
+            <div class="row">
+               <div class=" col-md-4">
+                  <h3>Contact US</h3>
+                  <ul class="conta">
+                     <li><i class="fa fa-map-marker" aria-hidden="true"></i> Address</li>
+                     <li><i class="fa fa-mobile" aria-hidden="true"></i> +01 1234569540</li>
+                     <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="#"> demo@gmail.com</a></li>
+                  </ul>
+               </div>
+               <div class="col-md-4">
+                  <h3>Menu Link</h3>
+                  <ul class="link_menu">
+                     <li class="active"><a href="#">Home</a></li>
+                     <li><a href="get_all_rooms.php">Our Rooms</a></li>
+                     <li><a href="get_services.php">Services</a></li>
+                     <li><a href="get_all_offers.php">Special Offers</a></li>                     
+                     <li><a href="contact.html">Contact Us</a></li>
+                  </ul>
+               </div>
+               <div class="col-md-4">
+                  <h3>News letter</h3>
+                  <form class="bottom_form">
+                     <input class="enter" placeholder="Enter your email" type="text" name="Enter your email">
+                     <button class="sub_btn">subscribe</button>
+                  </form>
+                  <ul class="social_icon">
+                     <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                     <li><a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <div class="copyright">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h3>Contact US</h3>
-                        <ul class="conta">
-                            <li><i class="fa fa-map-marker" aria-hidden="true"></i> Address</li>
-                            <li><i class="fa fa-mobile" aria-hidden="true"></i> +01 1234569540</li>
-                            <li><i class="fa fa-envelope" aria-hidden="true"></i><a href="#"> demo@gmail.com</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h3>Menu Link</h3>
-                        <ul class="link_menu">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li class="active"><a href="room.html">Our Rooms</a></li>
-                            <li><a href="specialOffers.html">Special Offers</a></li>
-                            <li><a href="get_services.php">Services</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h3>Newsletter</h3>
-                        <form class="bottom_form">
-                            <input class="enter" placeholder="Enter your email" type="text" name="Enter your email">
-                            <button class="sub_btn">Subscribe</button>
-                        </form>
-                        <ul class="social_icon">
-                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
+               <div class="row">
+                  <div class="col-md-10 offset-md-1">
+
+                     <p>
+                        © 2019 All Rights Reserved. Design by <a href="https://html.design/"> Free Html Templates</a>
+                        <br><br>
+                        Distributed by <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+                     </p>
+
+                  </div>
+               </div>
             </div>
-            <div class="copyright">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-10 offset-md-1">
-                            <p>
-                                © 2019 All Rights Reserved. Design by <a href="https://html.design/">Free Html Templates</a>
-                                <br><br>
-                                Distributed by <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+         </div>
+      </div>
+   </footer>
     <!-- end footer -->
     
     <!-- Javascript files-->

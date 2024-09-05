@@ -1,9 +1,18 @@
 <?php
 session_start(); // Start session to access session variables
 
-require_once 'includes/services/services_view.inc.php';
+require_once "includes/dbh.inc.php";     // Connect to the database.        
+require_once 'includes/offers/offers_view.inc.php';
+require_once "includes/offers/offers_model.inc.php";
+
 $user_id = $_SESSION["user_id"];
 $username = isset($_SESSION['user_username']) ? $_SESSION['user_username'] : null;;
+
+$special_offer = $_SESSION['special_offer'];
+$offer_rooms = $_SESSION['offer_rooms'];
+
+$arrival = isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : null;
+$departure = isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : null;
 ?>
 
 <!DOCTYPE html>
@@ -72,14 +81,14 @@ $username = isset($_SESSION['user_username']) ? $_SESSION['user_username'] : nul
                         <ul class="navbar-nav mr-auto">
                            <li class="nav-item ">
                               <a class="nav-link" href="main_page.php">Home</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="get_all_rooms.php">Our Rooms</a>
                            </li>                           
-                           <li class="nav-item active">
-                              <a class="nav-link" href="services.php">Services</a>
-                           </li>
                            <li class="nav-item">
+                              <a class="nav-link" href="get_all_rooms.php">Our rooms</a>
+                           </li>                           
+                           <li class="nav-item">
+                              <a class="nav-link" href="get_services.php">Services</a>
+                           </li>
+                           <li class="nav-item active">
                               <a class="nav-link" href="get_all_offers.php">Special Offers</a>
                            </li>
                            <li class="nav-item">
@@ -107,89 +116,98 @@ $username = isset($_SESSION['user_username']) ? $_SESSION['user_username'] : nul
       <div class="container">
          <div class="row">
             <div class="col-md-12">
-               <div class="title">
-                  <h2>Services</h2>
+                <div class="title">
+                    <?php                
+                        echo "<h2>" . "Special Offers" . "</h2>";                    
+                    ?>            
                </div>
             </div>
          </div>
       </div>
    </div>
 
-   <!-- services -->
-<div class="services" style="background: url('images/Activities.jfif') no-repeat; background-size: 100% 100%;">
-   <div class="container">
-      <div class="row">
-         <div class="col-md-12">
-            <div class="titlepage">
-               <p class="margin_0" style="color: #333; font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
-                  Activities
-               </p>
-            </div>
-         </div>
-      </div>
-      <div class="row">
-         <?php output_activity_services();?>            
-      </div>
-   </div> 
-   <!-- Extra space with "See more" button -->
-   <div style="text-align: right; margin-right: 20px;">
-      <a href="includes/services/services.inc.php?services=Activities" class="btn btn-primary" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none;">
-         See more
-      </a>
-   </div>     
-</div>
-<!-- end services -->
+   <!-- Space Divider -->
+   <div style="height: 30px;"></div>
 
-
-   <!-- services -->
-   <div class="services" style="background: url('images/wellness.jpg') no-repeat; background-size: 100% 100%;">
+   <!-- Filter Section -->
+   <div class="filter_section">
       <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="titlepage">
-                  <p class="margin_0" style="color: #333; font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
-                     Wellness
-                  </p>
-               </div>
-            </div>
-         </div>
-         <div class="row">
-            <?php output_wellness_services(); ?>
-         </div>
-      </div>
-      <!-- Extra space with "See more" button -->
-      <div style="text-align: right; margin-right: 20px;">
-         <a href="includes/services/services.inc.php?services=Wellness" class="btn btn-primary" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none;">
-            See more
-         </a>
-      </div>   
-   </div>
-   <!-- end services -->
+         <form method="GET" action="filter_offers_rooms.php">               
+               <div class="row">
+                  <div class="col-md-3">
+                     <label for="arrival">Arrival Date:</label>
+                     <input type="date" name="arrival" id="arrival" class="form-control" value="<?php echo isset($_GET['arrival']) ? htmlspecialchars($_GET['arrival']) : null; ?>">
+                  </div>
+                  <div class="col-md-3">
+                     <label for="departure">Departure Date:</label>
+                     <input type="date" name="departure" id="departure" class="form-control" value="<?php echo isset($_GET['departure']) ? htmlspecialchars($_GET['departure']) : null; ?>">
+                  </div>
+                  <div class="col-md-3">
+                     <label for="room_type">Room Type:</label>
+                     <select name="room_type" id="room_type" class="form-control">
+                           <option value="">Any</option>
+                           <option value="single" <?php echo isset($_GET['room_type']) && $_GET['room_type'] == 'single' ? 'selected' : null; ?>>Single</option>
+                           <option value="double" <?php echo isset($_GET['room_type']) && $_GET['room_type'] == 'double' ? 'selected' : null; ?>>Double</option>
+                           <option value="suite" <?php echo isset($_GET['room_type']) && $_GET['room_type'] == 'suite' ? 'selected' : null; ?>>Suite</option>
+                     </select>
+                  </div>
+                  <!-- New Search Bar -->        
+                  <div class="col-md-3">
+                     <label for="search" class="form-label"></label>
+                     <input type="text" name="search" id="search" class="form-control" placeholder="Search by room name..." 
+                           value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : null; ?>">
+                  </div>
 
-   <!-- services -->
-   <div class="services" style="background: url('images/CulinaryExperiences.jpg') no-repeat; background-size: 100% 100%;">
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="titlepage">
-                  <p class="margin_0" style="font-size: 24px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
-                     Culinary Experiences
-                  </p>
-               </div>
-            </div>
-         </div>
-         <div class="row">
-            <?php output_culinary_services(); ?>
-         </div>
+                  <div class="col-md-3">
+                     <label for="num_beds">Number of Beds:</label>
+                     <select name="num_beds" id="num_beds" class="form-control">
+                           <option value="">Any</option>
+                           <option value="1" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '1' ? 'selected' : null; ?>>1</option>
+                           <option value="2" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '2' ? 'selected' : null; ?>>2</option>
+                           <option value="3" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '3' ? 'selected' : null; ?>>3</option>
+                           <option value="4" <?php echo isset($_GET['num_beds']) && $_GET['num_beds'] == '4' ? 'selected' : null; ?>>4</option>
+                     </select>
+                  </div>
+                  <div class="col-md-3">
+                     <label for="capacity">Capacity:</label>
+                     <select name="capacity" id="capacity" class="form-control">
+                           <option value="">Any</option>
+                           <option value="1" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '1' ? 'selected' : null; ?>>1</option>
+                           <option value="2" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '2' ? 'selected' : null; ?>>2</option>
+                           <option value="3" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '3' ? 'selected' : null; ?>>3</option>
+                           <option value="4" <?php echo isset($_GET['capacity']) && $_GET['capacity'] == '4' ? 'selected' : null; ?>>4+</option>
+                     </select>
+                  </div>
+                  <div class="col-md-3">
+                     <label for="sort_order">Order by Price:</label>
+                     <select name="sort_order" id="sort_order" class="form-control">
+                           <option value="">Any</option>
+                           <option value="asc" <?php echo isset($_GET['sort_order']) && $_GET['sort_order'] == 'asc' ? 'selected' : null; ?>>Low to High</option>
+                           <option value="desc" <?php echo isset($_GET['sort_order']) && $_GET['sort_order'] == 'desc' ? 'selected' : null; ?>>High to Low</option>
+                     </select>
+                  </div> 
+               </div>                
+               <button type="submit" class="btn btn-primary mt-3">Apply Filters</button>
+               <!-- Clear Filters Button -->
+               <button type="reset" class="btn btn-secondary mt-3" onclick="window.location.href='get_all_offers.php';">Clear Filters</button>
+         </form>
       </div>
-         <!-- Extra space with "See more" button -->
-         <div style="text-align: right; margin-right: 20px;">
-            <a href="includes/services/services.inc.php?services=Culinary" class="btn btn-primary" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none;">
-               See more
-            </a>
-         </div>   
    </div>
-   <!-- end services -->
+   <!-- End Filter Section -->
+
+   <!-- Booking Details -->
+   <div class="our_room">
+        <div class="container">            
+            <div class="row">                
+                <?php                                    
+                    output_the_offer($arrival, $departure); 
+                ?>
+            </div>
+        </div>
+    </div>
+    <!-- end Booking Details -->
+
+
 
    <!--  footer -->
    <footer>

@@ -2,12 +2,18 @@
 //                              TAKE CARE OF QUERING THE DATABASE 
 
 function get_available_rooms($pdo, $arrival, $departure, $room_type, $num_beds, $capacity, $sort_order, $search) {
-    if ($arrival != "" && $departure != "") {
+    $params = [];
+
+    if ($arrival != null && $departure != null) {
         // Step 1: Find all room IDs that are already booked during the given period
         $query = "
             SELECT FK2_RoomID 
-            FROM makes_simple_resrv 
-            WHERE !(:departure <= CheckIn OR :arrival >=CheckOut)            
+            FROM makes_simple_resrv
+            WHERE NOT (:departure <= CheckIn OR :arrival >= CheckOut)
+            UNION
+            SELECT FK2_RoomID 
+            FROM makes_special_resrv
+            WHERE NOT (:departure <= CheckIn OR :arrival >= CheckOut)
         ";
 
         $stmt = $pdo->prepare($query);
@@ -16,20 +22,22 @@ function get_available_rooms($pdo, $arrival, $departure, $room_type, $num_beds, 
         $stmt->execute();
 
         $bookedRooms = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);  // Fetch only the room IDs
+    } else {
+        $bookedRooms = [];
     }
-    else {
-        $bookedRooms = "";
-    }
-        
+
     // Step 2: Build the base query
     $query = "SELECT * FROM room";
     $conditions = [];
-    $params = [];
-
+    
     if (!empty($bookedRooms)) {
-        $placeholders = rtrim(str_repeat('?,', count($bookedRooms)), ',');
-        $conditions[] = "RoomID NOT IN ($placeholders)";
-        $params = array_merge($params, $bookedRooms);
+        // Use named placeholders for the NOT IN clause
+        $placeholders = [];
+        foreach ($bookedRooms as $index => $roomID) {
+            $placeholders[] = ":roomID_$index";
+            $params[":roomID_$index"] = $roomID;
+        }
+        $conditions[] = "RoomID NOT IN (" . implode(', ', $placeholders) . ")";
     }
 
     // Apply filters if provided
@@ -64,9 +72,18 @@ function get_available_rooms($pdo, $arrival, $departure, $room_type, $num_beds, 
 
     // Prepare and execute the query
     $stmt = $pdo->prepare($query);
-    foreach ($params as $key => $value) {
-        $stmt->bindValue(is_int($key) ? ($key + 1) : $key, $value);
-    }
+    
+    // Bind all parameters directly in the execute() method
+    $stmt->execute($params);
+
+    $availableRooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $availableRooms;
+}
+
+
+function get_all_rooms($pdo) {
+    $query = "SELECT * FROM room";
+    $stmt = $pdo->prepare($query);
     $stmt->execute();
 
     $availableRooms = $stmt->fetchAll(PDO::FETCH_ASSOC);   

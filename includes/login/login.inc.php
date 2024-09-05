@@ -65,8 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // User Logged in
         $_SESSION["user_id"] = $results["CustomerID"];
-        $_SESSION["user_username"] = htmlspecialchars($results["username"]);    // Sanitize data 
-        $_SESSION['last_regeneration'] = time();                                
+        $_SESSION["user_username"] = htmlspecialchars($results["Username"]);    // Sanitize data 
+        $_SESSION['last_regeneration'] = time();                                       
 
         // header("Location: ../../index.php?login=success");
 

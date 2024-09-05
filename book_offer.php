@@ -1,3 +1,53 @@
+<?php
+// $res = make_special_resrv($pdo, $user_id, $room_id, $offer_id, $arrival, $departure, $totalCost);    
+    
+// if ($res == 1) {
+//     // Redirect to a success page
+//     header('Location: ../book_now/reservation_success.php');
+//     exit();
+// } else {
+//     // Redirect to an error page
+//     header('Location: ../book_now/reservation_error.php');
+//     exit();
+// }
+session_start(); // Start session to access session variables
+
+require_once "includes/dbh.inc.php";     // Connect to the database.        
+require_once "includes/offers/offers_view.inc.php";
+require_once "includes/offers/offers_model.inc.php";
+require_once "includes/book_now/book_now_model.inc.php";
+
+// Submit Reservation
+// Check if the form was submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $arrival = $_POST['arrival'];
+    $departure = $_POST['departure'];        
+    $room_id = $_POST['room_id'];    
+
+    if (empty($arrival) || empty($departure) || empty($room_id)) {
+        // ERROR!!!!
+        // One or more variables are empty
+        echo "One or more fields are empty.";
+        header('Location: offer_page.php');
+        exit();
+    }
+
+    if (!isset($_SESSION['special_offer']) || !isset($_SESSION['service_name'])) {
+        // ERROR!!!!
+        echo "Something went wrong";
+        header('Location: ../../offer_page.php');
+        exit();
+    }
+
+    $special_offer = $_SESSION['special_offer'];
+    $service_name = $_SESSION['service_name'];
+    $user_id = $_SESSION['user_id'];
+    $username = isset($_SESSION['user_username']) ? $_SESSION['user_username'] : null;;
+
+    $curr_room = get_room($pdo, $room_id);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +99,7 @@
                   <div class="full">
                      <div class="center-desk">
                         <div class="logo">
-                           <a href="main_page.php"><img src="images/logo.png" alt="#" /></a>
+                           <a href="main_page.php"><img src="images/my_logo.png" alt="#" /></a>
                         </div>
                      </div>
                   </div>
@@ -64,21 +114,26 @@
                         <ul class="navbar-nav mr-auto">
                            <li class="nav-item ">
                               <a class="nav-link" href="main_page.php">Home</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="about.html">About</a>
-                           </li>
+                           </li>                        
                            <li class="nav-item">
                               <a class="nav-link" href="get_all_rooms.php">Our rooms</a>
                            </li>
                            <li class="nav-item active">
-                              <a class="nav-link" href="specialOffers.html">Special Offers</a>
+                              <a class="nav-link" href="services.php">Services</a>
                            </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="get_services.php">Services</a>
-                           </li>
+                           <li class="nav-item active">
+                              <a class="nav-link" href="get_all_offers.php">Special Offers</a>
+                           </li>                           
                            <li class="nav-item">
                               <a class="nav-link" href="contact.html">Contact Us</a>
+                           </li>
+                           <li class="nav-item">                              
+                              <span class="nav-link" style="color: #a8a6a5; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); font-family: 'Garamond', serif;"><?php echo htmlspecialchars($username); ?></span>
+                           </li>
+                           <li class="nav-item">
+                              <form class="form-inline" action="includes/logout/logout.inc.php" method="post">
+                                 <button class="btn btn-danger ml-2" type="submit">Logout</button>
+                              </form>
                            </li>
                         </ul>
                      </div>
@@ -95,61 +150,22 @@
          <div class="row">
             <div class="col-md-12">
                <div class="title">
-                  <h2>Special Offers</h2>
+                  <h2>Book Now using Special Offers packet</h2>
                </div>
             </div>
          </div>
       </div>
    </div>
-   <!-- Special Offers -->
-   <div class="specialOffers">
-      <div class="container">
-
-         <div class="row">
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers1.jpg" alt="#" /></figure>
-               </div>
+   
+   <!-- Booking Details -->
+   <div class="our_room">
+        <div class="container">            
+            <div class="row">
+                <?php output_offer_info($curr_room, $special_offer, $service_name, $arrival, $departure, $user_id); ?>                
             </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers2.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers3.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers4.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers5.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers6.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers7.jpg" alt="#" /></figure>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="specialOffers_img">
-                  <figure><img src="images/specialOffers8.jpg" alt="#" /></figure>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- end specialOffers -->
+        </div>
+    </div>
+    <!-- end Booking Details -->
 
    <!--  footer -->
    <footer>
@@ -167,11 +183,10 @@
                <div class="col-md-4">
                   <h3>Menu Link</h3>
                   <ul class="link_menu">
-                     <li><a href="#">Home</a></li>
-                     <li><a href="about.html"> about</a></li>
+                     <li class="active"><a href="#">Home</a></li>
                      <li><a href="get_all_rooms.php">Our Rooms</a></li>
-                     <li class="active"><a href="specialOffers.html">Special Offers</a></li>
-                     <li><a href="services.php">Services</a></li>
+                     <li><a href="get_services.php">Services</a></li>
+                     <li><a href="get_all_offers.php">Special Offers</a></li>                     
                      <li><a href="contact.html">Contact Us</a></li>
                   </ul>
                </div>
@@ -194,11 +209,13 @@
             <div class="container">
                <div class="row">
                   <div class="col-md-10 offset-md-1">
+
                      <p>
                         © 2019 All Rights Reserved. Design by <a href="https://html.design/"> Free Html Templates</a>
                         <br><br>
                         Distributed by <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
                      </p>
+
                   </div>
                </div>
             </div>

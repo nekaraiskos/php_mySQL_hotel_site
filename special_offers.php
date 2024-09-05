@@ -1,3 +1,11 @@
+<?php
+session_start(); // Start session to access session variables
+
+require_once 'includes/offers/offers_view.inc.php';
+$user_id = $_SESSION["user_id"];
+$username = isset($_SESSION['user_username']) ? $_SESSION['user_username'] : null;;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +41,7 @@
 </head>
 <!-- body -->
 
-<body class="main-layout">
+<body class="main-layout inner_page">
    <!-- loader  -->
    <div class="loader_bg">
       <div class="loader"><img src="images/loading.gif" alt="#" /></div>
@@ -65,20 +73,25 @@
                            <li class="nav-item ">
                               <a class="nav-link" href="main_page.php">Home</a>
                            </li>
-                           <li class="nav-item active">
-                              <a class="nav-link" href="about.html">About</a>
-                           </li>
                            <li class="nav-item">
                               <a class="nav-link" href="get_all_rooms.php">Our rooms</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="get_all_offers.php">Special Offers</a>
-                           </li>
+                           </li>                           
                            <li class="nav-item">
                               <a class="nav-link" href="get_services.php">Services</a>
                            </li>
+                           <li class="nav-item active">
+                              <a class="nav-link" href="get_all_offers.php">Special Offers</a>
+                           </li>
                            <li class="nav-item">
                               <a class="nav-link" href="contact.html">Contact Us</a>
+                           </li>
+                           <li class="nav-item">                              
+                              <span class="nav-link" style="color: #a8a6a5; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); font-family: 'Garamond', serif;"><?php echo htmlspecialchars($username); ?></span>
+                           </li>
+                           <li class="nav-item">
+                              <form class="form-inline" action="includes/logout/logout.inc.php" method="post">
+                                 <button class="btn btn-danger ml-2" type="submit">Logout</button>
+                              </form>
                            </li>
                         </ul>
                      </div>
@@ -95,36 +108,42 @@
          <div class="row">
             <div class="col-md-12">
                <div class="title">
-                  <h2>About Us</h2>
+                  <h2>Special Offers</h2>
                </div>
             </div>
          </div>
       </div>
    </div>
-   <!-- about -->
-   <div class="about">
-      <div class="container-fluid">
+
+   <!-- Filter Section -->
+   <div class="filter_section">
+      <div class="container">
+         <form method="GET" action="includes/offers/filter_offers.inc.php">               
+               <div class="row">
+                  <!-- New Search Bar -->        
+                  <div class="col-md-3">
+                     <label for="search" class="form-label"></label>
+                     <input type="text" name="search" id="search" class="form-control" placeholder="Search..." 
+                           value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : null; ?>">
+                  </div>
+               </div>                
+               <button type="submit" class="btn btn-primary mt-3">Apply Filters</button>
+               <!-- Clear Filters Button -->
+               <button type="reset" class="btn btn-secondary mt-3" onclick="window.location.href='includes/offers/filter_offers.inc.php';">Clear Filters</button>
+         </form>
+      </div>
+   </div>
+   <!-- End Filter Section -->
+
+   <!-- Special Offers -->
+   <div class="specialOffers">
+      <div class="container">
          <div class="row">
-            <div class="col-md-5">
-               <div class="titlepage">
-
-                  <p class="margin_0">The passage experienced a surge in popularity during the 1960s when Letraset used
-                     it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text
-                     with their software. Today it's seen all around the web; on templates, websites, and stock designs.
-                     Use our generator to get your own, or read on for the authoritative history of lorem ipsum. </p>
-                  <a class="read_more" href="Javascript:void(0)"> Read More</a>
-               </div>
-            </div>
-            <div class="col-md-7">
-               <div class="about_img">
-                  <figure><img src="images/about.png" alt="#" /></figure>
-               </div>
-            </div>
+            <?php output_special_offers();?>            
          </div>
       </div>
    </div>
-   <!-- end about -->
-
+   <!-- end specialOffers -->
 
    <!--  footer -->
    <footer>
@@ -142,11 +161,10 @@
                <div class="col-md-4">
                   <h3>Menu Link</h3>
                   <ul class="link_menu">
-                     <li><a href="#">Home</a></li>
-                     <li class="active"><a href="about.html"> about</a></li>
+                     <li class="active"><a href="#">Home</a></li>
                      <li><a href="get_all_rooms.php">Our Rooms</a></li>
-                     <li><a href="get_all_offers.php">Special Offers</a></li>
                      <li><a href="get_services.php">Services</a></li>
+                     <li><a href="get_all_offers.php">Special Offers</a></li>                     
                      <li><a href="contact.html">Contact Us</a></li>
                   </ul>
                </div>
@@ -169,11 +187,13 @@
             <div class="container">
                <div class="row">
                   <div class="col-md-10 offset-md-1">
+
                      <p>
                         © 2019 All Rights Reserved. Design by <a href="https://html.design/"> Free Html Templates</a>
                         <br><br>
                         Distributed by <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
                      </p>
+
                   </div>
                </div>
             </div>

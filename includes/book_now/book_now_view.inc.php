@@ -17,11 +17,14 @@ function output_available_rooms($arrival, $departure) {
             echo '<a href="' . $bookingUrl . '">';
             
             if (!empty($room['Image'])) {
-                $imageData = base64_encode($room['Image']);
-                $imageSrc = 'data:image/jpeg;base64,' . $imageData; // Adjust MIME type based on image format
-                echo '<figure><img src="' . $imageSrc . '" alt="Room Image" /></figure>';
+                $imageSrc = htmlspecialchars($room['Image']); // Sanitize the image path
+                echo '<div class="room-image-container">';
+                echo '<img class="room-image" src="' . $imageSrc . '" alt="Room Image" />';
+                echo '</div>';
             } else {
-                echo '<figure><img src="images/placeholder.jpg" alt="No Image Available" /></figure>'; // Use a placeholder image if no image is available
+                echo '<div class="room-image-container">';
+                echo '<img class="room-image" src="images/placeholder.jpg" alt="No Image Available" />';
+                echo '</div>';
             }
             
             echo '</a>'; // Close anchor tag
@@ -50,10 +53,10 @@ function output_available_rooms($arrival, $departure) {
 
 function output_room_info($curr_room, $arrival, $departure, $user_id) {
     echo '<div class="room-details">';
-    
+
+     // Display the room image using the file path stored in the database
     if (!empty($curr_room['Image'])) {
-        $imageData = base64_encode($curr_room['Image']);
-        $imageSrc = 'data:image/jpeg;base64,' . $imageData;
+        $imageSrc = htmlspecialchars($curr_room['Image']); // Sanitize the image path
         echo '<div class="room-image-container">';
         echo '<img class="room-image" src="' . $imageSrc . '" alt="Room Image" />';
         echo '</div>';

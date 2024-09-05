@@ -42,7 +42,7 @@ require_once 'includes/login/login_view.inc.php';
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="index.php"><img src="images/logo.png" alt="#" /></a>
+                                    <a href="index.php"><img src="images/my_logo.png" alt="#" /></a>
                                 </div>
                             </div>
                         </div>
@@ -86,6 +86,26 @@ require_once 'includes/login/login_view.inc.php';
         <!-- </div> -->
             <?php check_login_errors()?>
             <br>
+            
+            
+            
+            
+            <!-- <div class="col-md-6">
+                <h3>Signup</h3>
+                <form action="includes/signup/signup.inc.php" method="post">
+                    <?php signup_inputs(); ?>
+                    <button class="btn btn-success">Signup</button>
+                </form>
+
+                <?php check_signup_errors(); ?>
+            </div> -->
+        </div>        
+    </div>
+    <!-- End Login and Signup Section -->
+
+
+    <div class="container mt-5">
+        <div class="row">
             <div class="col-md-6">
                 <h3>Signup</h3>
                 <form action="includes/signup/signup.inc.php" method="post">
@@ -95,9 +115,23 @@ require_once 'includes/login/login_view.inc.php';
 
                 <?php check_signup_errors(); ?>
             </div>
-        </div>        
+        </div>
     </div>
-    <!-- End Login and Signup Section -->
+
+    <!-- <div class="row">
+            <div class="col-md-6">
+                <h3>User Login</h3>
+                <form action="includes/login/login.inc.php" method="post">
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="pwd" class="form-control" placeholder="Password">
+                </div>
+                <input type="hidden" name="user_type" value="user">
+                <button class="btn btn-primary" type="submit" value="login">Login</button>
+            </form>
+        </div> -->
 
     <!-- Footer -->
     <footer>
