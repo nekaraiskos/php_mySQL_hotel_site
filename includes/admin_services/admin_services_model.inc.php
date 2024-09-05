@@ -33,3 +33,34 @@ function edit_activity_table($pdo, $difficultyLevel, $minimumAge, $duration, $gu
     $stmt->bindParam(':ServiceID', $serviceID);
     $stmt->execute();
 }
+
+function edit_wellness_table($pdo, $roomType, $therapistRequired, $treatmentType, $duration, $serviceID) {
+    $sql = "UPDATE wellness 
+            SET RoomType = :RoomType, TherapistRequired = :TherapistRequired, 
+                TreatmentType = :TreatmentType, Duration = :Duration 
+            WHERE ServiceID = :ServiceID";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':RoomType', $roomType);
+    $stmt->bindParam(':TherapistRequired', $therapistRequired);
+    $stmt->bindParam(':TreatmentType', $treatmentType);
+    $stmt->bindParam(':Duration', $duration);
+    $stmt->bindParam(':ServiceID', $serviceID);
+    $stmt->execute();
+}
+
+function edit_culinary_table($pdo, $mealType, $specialDietary, $menuOptions, $dressCode, $serviceID) {
+    $sql = "UPDATE culinary_experience 
+            SET MealType = :MealType, SpecialDietary = :SpecialDietary, 
+                MenuOptions = :MenuOptions, DressCode = :DressCode 
+            WHERE ServiceID = :ServiceID";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':MealType', $mealType);
+    $stmt->bindParam(':SpecialDietary', $specialDietary);
+    $stmt->bindParam(':MenuOptions', $menuOptions);
+    $stmt->bindParam(':DressCode', $dressCode);
+    $stmt->bindParam(':ServiceID', $serviceID);
+    $stmt->execute();
+}
+

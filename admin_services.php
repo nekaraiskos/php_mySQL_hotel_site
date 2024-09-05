@@ -128,9 +128,7 @@ require_once 'includes/dbh.inc.php';
          </div> -->
 
          <!-- Button to trigger the modal -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addActivityServiceModal">
-         Add Activity Service
-      </button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addActivityServiceModal"> Add Activity Service</button>
 
       <!-- Add Activity Service Modal -->
       <div class="modal fade" id="addActivityServiceModal" tabindex="-1" role="dialog" aria-labelledby="addActivityServiceModalLabel" aria-hidden="true">
@@ -195,7 +193,185 @@ require_once 'includes/dbh.inc.php';
       </div>
 
       </div>
+
+   <div>
+   <div class="wellness_services">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-12">
+               <div class="titlepage">
+                  <h1>Wellness</h1>
+               </div>
+            </div>
+            <div class = "row">
+               <!-- display_admin_wellness_services($pdo) -->
+                <?php display_admin_wellness_services($pdo) ?>
+            </div>
+         </div>
+
+
+         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addWellnessServiceModal"> Add Wellness Service</button>
+
+         <!-- Add Wellness Service Modal -->
+      <div class="modal fade" id="addWellnessServiceModal" tabindex="-1" role="dialog" aria-labelledby="addWellnessServiceModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="addWellnessServiceModalLabel">Add Wellness Service</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <form id="addWellnessServiceForm" action="includes/admin_services/add_wellness_service.inc.php" method="post" enctype="multipart/form-data">
+                     <div class="modal-body">
+                        <!-- Service Table Fields -->
+                        <div class="form-group">
+                              <label for="serviceName">Service Name</label>
+                              <input type="text" class="form-control" id="serviceName" name="serviceName" required>
+                        </div>
+                        <div class="form-group">
+                              <label for="price">Price</label>
+                              <input type="text" class="form-control" id="price" name="price" required>
+                        </div>
+                        <div class="form-group">
+                              <label for="availabilityHours">Availability Hours</label>
+                              <input type="text" class="form-control" id="availabilityHours" name="availabilityHours" required>
+                        </div>
+                        <div class="form-group">
+                              <label for="description">Description</label>
+                              <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                              <label for="image">Image</label>
+                              <input type="file" class="form-control" id="image" name="image" required>
+                        </div>
+
+                        <!-- Wellness Table Fields -->
+                        <div class="form-group">
+                              <label for="roomType">Room Type</label>
+                              <input type="text" class="form-control" id="roomType" name="roomType" required>
+                        </div>
+                        <div class="form-check">
+                              <input type="checkbox" class="form-check-input" id="therapistRequired" name="therapistRequired">
+                              <label class="form-check-label" for="therapistRequired">Therapist Required</label>
+                        </div>
+                        <div class="form-group">
+                              <label for="treatmentType">Treatment Type</label>
+                              <input type="text" class="form-control" id="treatmentType" name="treatmentType" required>
+                        </div>
+                        <div class="form-group">
+                              <label for="duration">Duration (in hours)</label>
+                              <input type="text" class="form-control" id="duration" name="duration" required>
+                        </div>
+
+                        <div class="form-check">
+                              <input type="checkbox" class="form-check-input" id="therapistRequired" name="therapistRequired">
+                              <label class="form-check-label" for="therapistRequired">Therapist Required</label>
+                        </div>
+                        <!-- Common Field -->
+                        <div class="form-check">
+                              <input type="checkbox" class="form-check-input" id="bookingRequired" name="bookingRequired">
+                              <label class="form-check-label" for="bookingRequired">Booking Required</label>
+                        </div>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                     </div>
+                  </form>
+            </div>
+         </div>
+      </div>
+
    </div>
+
+
+
+
+   </div>
+
+   <div class="culinary_services">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="titlepage">
+               <h1>Culinary Experiences</h1>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <?php display_admin_culinary_services($pdo); ?>
+      </div>
+
+      <!-- Button to trigger the modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCulinaryServiceModal"> Add Culinary Experience</button>
+
+      <!-- Add Culinary Service Modal -->
+      <div class="modal fade" id="addCulinaryServiceModal" tabindex="-1" role="dialog" aria-labelledby="addCulinaryServiceModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="addCulinaryServiceModalLabel">Add Culinary Experience</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <form id="addCulinaryServiceForm" action="includes/admin_services/add_culinary_service.inc.php" method="post" enctype="multipart/form-data">
+                  <div class="modal-body">
+                     <div class="form-group">
+                        <label for="serviceName">Service Name</label>
+                        <input type="text" class="form-control" id="serviceName" name="serviceName" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" class="form-control" id="price" name="price" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="availabilityHours">Availability Hours</label>
+                        <input type="text" class="form-control" id="availabilityHours" name="availabilityHours" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                     </div>
+                     <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="file" class="form-control" id="image" name="image" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="mealType">Meal Type</label>
+                        <input type="text" class="form-control" id="mealType" name="mealType" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="specialDietary">Special Dietary</label>
+                        <input type="text" class="form-control" id="specialDietary" name="specialDietary" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="menuOptions">Menu Options</label>
+                        <input type="text" class="form-control" id="menuOptions" name="menuOptions" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="dressCode">Dress Code</label>
+                        <input type="text" class="form-control" id="dressCode" name="dressCode" required>
+                     </div>
+                     <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="bookingRequired" name="bookingRequired">
+                        <label class="form-check-label" for="bookingRequired">Booking Required</label>
+                     </div>
+                  </div>
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                     <button type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+
 
    <!-- services -->
    <!-- <div class="services" style="background: url('images/Activities.jfif') no-repeat; background-size: 100% 100%;">

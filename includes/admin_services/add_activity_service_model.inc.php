@@ -33,3 +33,32 @@ function add_service_to_activities($pdo, $serviceID, $difficultyLevel, $minimumA
         ':GuideRequired' => $guideRequired
     ]);
 }
+
+function add_service_to_wellness($pdo, $serviceID, $roomType, $therapistRequired, $treatmentType, $duration) {
+    $sql = "INSERT INTO wellness (ServiceID, RoomType, TherapistRequired, TreatmentType, Duration)
+            VALUES (:ServiceID, :RoomType, :TherapistRequired, :TreatmentType, :Duration)";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':ServiceID', $serviceID);
+    $stmt->bindParam(':RoomType', $roomType);
+    $stmt->bindParam(':TherapistRequired', $therapistRequired);
+    $stmt->bindParam(':TreatmentType', $treatmentType);
+    $stmt->bindParam(':Duration', $duration);
+
+    $stmt->execute();
+}
+
+function add_service_to_culinary($pdo, $serviceID, $mealType, $specialDietary, $menuOptions, $dressCode) {
+    $sql = "INSERT INTO culinary_experience (ServiceID, MealType, SpecialDietary, MenuOptions, DressCode)
+            VALUES (:ServiceID, :MealType, :SpecialDietary, :MenuOptions, :DressCode)";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':ServiceID', $serviceID);
+    $stmt->bindParam(':MealType', $mealType);
+    $stmt->bindParam(':SpecialDietary', $specialDietary);
+    $stmt->bindParam(':MenuOptions', $menuOptions);
+    $stmt->bindParam(':DressCode', $dressCode);
+
+    $stmt->execute();
+}
+
