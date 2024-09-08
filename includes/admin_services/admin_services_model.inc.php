@@ -49,15 +49,15 @@ function edit_wellness_table($pdo, $roomType, $therapistRequired, $treatmentType
     $stmt->execute();
 }
 
-function edit_culinary_table($pdo, $mealType, $specialDietary, $menuOptions, $dressCode, $serviceID) {
+function edit_culinary_table($pdo, $mealType, $menuOptions, $dressCode, $serviceID) {
     $sql = "UPDATE culinary_experience 
-            SET MealType = :MealType, SpecialDietary = :SpecialDietary, 
+            SET MealType = :MealType, 
                 MenuOptions = :MenuOptions, DressCode = :DressCode 
             WHERE ServiceID = :ServiceID";
 
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':MealType', $mealType);
-    $stmt->bindParam(':SpecialDietary', $specialDietary);
+    // $stmt->bindParam(':SpecialDietary', $specialDietary);
     $stmt->bindParam(':MenuOptions', $menuOptions);
     $stmt->bindParam(':DressCode', $dressCode);
     $stmt->bindParam(':ServiceID', $serviceID);

@@ -125,7 +125,7 @@ function display_admin_culinary_services($pdo) {
         echo "<h3>" . htmlspecialchars($experience['ServiceName']) . "</h3>";
         echo '<p>' . "Description: " . htmlspecialchars($experience['Description']) . '</p>';
         echo '<p>' . "Meal Type: " . htmlspecialchars($experience['MealType']) . '</p>';
-        echo '<p>' . "Special Dietary: " . htmlspecialchars($experience['SpecialDietary']) . '</p>';
+        // echo '<p>' . "Special Dietary: " . htmlspecialchars($experience['SpecialDietary']) . '</p>';
         echo '<p>' . "Menu Options: " . htmlspecialchars($experience['MenuOptions']) . '</p>';
         echo '<p>' . "Dress Code: " . htmlspecialchars($experience['DressCode']) . '</p>';
         echo '<p>' . "Booking Required: " . htmlspecialchars(($experience['BookingRequired'] == 0 ? "No" : "Yes")) . '</p>';
@@ -353,10 +353,10 @@ function generate_edit_modal_culinary($experience) {
                             <input type="text" class="form-control" id="mealType" name="mealType" value="<?php echo htmlspecialchars($experience['MealType']); ?>">
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="specialDietary">Special Dietary</label>
                             <input type="text" class="form-control" id="specialDietary" name="specialDietary" value="<?php echo htmlspecialchars($experience['SpecialDietary']); ?>">
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label for="menuOptions">Menu Options</label>
@@ -369,7 +369,7 @@ function generate_edit_modal_culinary($experience) {
                         </div>
 
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="bookingRequired" name="bookingRequired" <?php if (!$experience['BookingRequired']) echo 'checked'; ?>>
+                            <input type="checkbox" class="form-check-input" id="bookingRequired" name="bookingRequired" <?php if ($experience['BookingRequired']) echo 'checked'; ?>>
                             <label class="form-check-label" for="bookingRequired">Booking Required</label>
                         </div>
 

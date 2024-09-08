@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $serviceName = $_POST['serviceName'];
     $availabilityHours = $_POST['availabilityHours'];
     $mealType = $_POST['mealType'];
-    $specialDietary = $_POST['specialDietary'];
+    // $specialDietary = $_POST['specialDietary'];
     $menuOptions = $_POST['menuOptions'];
     $dressCode = $_POST['dressCode'];
     $serviceID = $_POST['serviceID'];
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Update the culinary_experience table
-    edit_culinary_table($pdo, $mealType, $specialDietary, $menuOptions, $dressCode, $serviceID);
+    edit_culinary_table($pdo, $mealType, $menuOptions, $dressCode, $serviceID);
     // Update the service table
     edit_service_table($pdo, $price, $bookingRequired, $description, $serviceName, $availabilityHours, $imagePath, $serviceID);
 

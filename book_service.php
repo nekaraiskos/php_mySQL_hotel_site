@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                      <div class="center-desk">
                         <div class="logo">
 <<<<<<<< HEAD:admin_room.php
-                           <a href="admin_main_page.html"><img src="images/logo.png" alt="#" /></a>
+                           <a href="admin_main_page.php"><img src="images/logo.png" alt="#" /></a>
 ========
                            <a href="main_page.php"><img src="images/my_logo.png" alt="#" /></a>
 >>>>>>>> origin/Celia:book_service.php
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                      <div class="collapse navbar-collapse" id="navbarsExample04">
                         <ul class="navbar-nav mr-auto">
                            <li class="nav-item ">
-                              <a class="nav-link" href="admin_main_page.html">Home</a>
+                              <a class="nav-link" href="admin_main_page.php">Home</a>
                            </li>
                            <li class="nav-item">
                               <a class="nav-link" href="get_all_rooms.php">Our Rooms</a>

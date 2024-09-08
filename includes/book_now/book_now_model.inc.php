@@ -90,14 +90,14 @@ function get_all_rooms($pdo) {
     return $availableRooms;
 }
 
-function get_all_rooms($pdo) {
-    $query = "SELECT * FROM room";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute();
+// function get_all_rooms($pdo) {
+//     $query = "SELECT * FROM room";
+//     $stmt = $pdo->prepare($query);
+//     $stmt->execute();
 
-    $availableRooms = $stmt->fetchAll(PDO::FETCH_ASSOC);   
-    return $availableRooms;
-}
+//     $availableRooms = $stmt->fetchAll(PDO::FETCH_ASSOC);   
+//     return $availableRooms;
+// }
 
 
 function get_room($pdo, $room_id) {

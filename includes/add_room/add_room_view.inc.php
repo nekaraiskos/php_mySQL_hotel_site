@@ -3,7 +3,7 @@
 require_once "add_room_model.inc.php";
 
 function display_admin_rooms($pdo) {
-    require_once "C:/xampp/htdocs/21_8/includes/dbh.inc.php";
+    require_once "includes/dbh.inc.php";
     $rooms = get_admin_rooms($pdo);
     if(empty($rooms)) {
         echo  'No available rooms.';
@@ -19,11 +19,11 @@ function display_admin_rooms($pdo) {
             // Display the room image wrapped in an anchor tag
             echo '<div class="room_img">';
             if (!empty($room['Image'])) {
-                $imageData = base64_encode($room['Image']);
-                $imageSrc = 'data:image/jpeg;base64,' . $imageData; // Adjust MIME type based on image format
-                echo '<figure><img src="' . $imageSrc . '" alt="#" /></figure>';
+                // Use the relative path stored in the database
+                $imageSrc = htmlspecialchars($room['Image']);
+                echo "<figure><img src='" . $imageSrc . "' alt='Room Image' /></figure>";
             } else {
-                echo '<figure><img src="images/placeholder.jpg" alt="No Image Available" /></figure>'; // Use a placeholder image if no image is available
+                echo '<p>No image available.</p>';
             }
             
             echo '</a>'; // Close anchor tag
@@ -37,7 +37,7 @@ function display_admin_rooms($pdo) {
             if ($room['HasHotTub'] == 1) {
                 echo 'Hot Tub Included<br>';
             }
-            echo 'Price Per Night: &#8364' . htmlspecialchars($room['PricePerNight']) . '</p>';
+            echo 'Price Per Night: ' . htmlspecialchars($room['PricePerNight']) . '&#8364 </p>';
 
             echo '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editRoomModal' . $room['RoomID'] . '">Edit</button> ';
             // echo '<button type="button" class="btn btn-danger" onclick="deleteRoom(' . $room['RoomID'] . ')">Delete</button>';

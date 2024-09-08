@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Culinary-specific fields
     $mealType = $_POST['mealType'];
-    $specialDietary = $_POST['specialDietary'];
+    // $specialDietary = $_POST['specialDietary'];
     $menuOptions = $_POST['menuOptions'];
     $dressCode = $_POST['dressCode'];
 
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $serviceID = $pdo->lastInsertId();
 
     // Add service to the culinary_experience table
-    add_service_to_culinary($pdo, $serviceID, $mealType, $specialDietary, $menuOptions, $dressCode);
+    add_service_to_culinary($pdo, $serviceID, $mealType, $menuOptions, $dressCode);
 
     // Redirect to the services page with a success message
     header('Location: ../../admin_services.php?message=ServiceAddedSuccessfully');

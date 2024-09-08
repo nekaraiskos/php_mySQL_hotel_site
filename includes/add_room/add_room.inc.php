@@ -41,6 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if ($uploadOk == 1) {
+            $image = $_FILES['image']['name'];
+            $imgContent = "images/" . $image;
+            
             insert_room_to_table($pdo, $roomname, $pricepernight, $numofbeds, $roomtype, $hashottub, $capacity, $imgContent);
             header("Location: ../../admin_room.php?upload=success");
             exit();

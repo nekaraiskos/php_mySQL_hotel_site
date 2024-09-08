@@ -48,14 +48,14 @@ function add_service_to_wellness($pdo, $serviceID, $roomType, $therapistRequired
     $stmt->execute();
 }
 
-function add_service_to_culinary($pdo, $serviceID, $mealType, $specialDietary, $menuOptions, $dressCode) {
-    $sql = "INSERT INTO culinary_experience (ServiceID, MealType, SpecialDietary, MenuOptions, DressCode)
-            VALUES (:ServiceID, :MealType, :SpecialDietary, :MenuOptions, :DressCode)";
+function add_service_to_culinary($pdo, $serviceID, $mealType, $menuOptions, $dressCode) {
+    $sql = "INSERT INTO culinary_experience (ServiceID, MealType, MenuOptions, DressCode)
+            VALUES (:ServiceID, :MealType, :MenuOptions, :DressCode)";
 
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':ServiceID', $serviceID);
     $stmt->bindParam(':MealType', $mealType);
-    $stmt->bindParam(':SpecialDietary', $specialDietary);
+    // $stmt->bindParam(':SpecialDietary', $specialDietary);
     $stmt->bindParam(':MenuOptions', $menuOptions);
     $stmt->bindParam(':DressCode', $dressCode);
 

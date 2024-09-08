@@ -48,49 +48,54 @@ require_once 'includes/dbh.inc.php';
    </div>
    <!-- end loader -->
    <!-- header -->
-   <header>
-      <!-- header inner -->
-      <div class="header">
+   <!-- header inner -->
+   <div class="header">
          <div class="container">
             <div class="row">
                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
                   <div class="full">
                      <div class="center-desk">
                         <div class="logo">
-                           <a href="admin_main_page.html"><img src="images/logo.png" alt="#" /></a>
+                           <a href="admin_main_page.php"><img src="images/my_logo.png" alt="#" /></a>
                         </div>
                      </div>
                   </div>
                </div>
                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-                  <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                  <!-- Navigation Bar -->
+                  <nav class="navigation navbar navbar-expand-md navbar-dark">
                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
                         aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                      </button>
                      <div class="collapse navbar-collapse" id="navbarsExample04">
                         <ul class="navbar-nav mr-auto">
-                           <li class="nav-item ">
-                              <a class="nav-link" href="admin_main_page.html">Home</a>
-                           </li>
                            <li class="nav-item">
+                              <a class="nav-link" href="admin_main_page.php">Home</a>
+                           </li>
+                           <!-- <li class="nav-item">
                               <a class="nav-link" href="about.html">About</a>
-                           </li>
+                           </li> -->
                            <li class="nav-item">
-                              <a class="nav-link" href="admin_room.php">Our Rooms</a>
-                           </li>
-                           <li class="nav-item">
-                              <a class="nav-link" href="specialOffers.html">Special Offers</a>
+                              <a class="nav-link" href="admin_room.php">Our&nbsp;rooms</a>
                            </li>
                            <li class="nav-item active">
                               <a class="nav-link" href="admin_services.php">Services</a>
                            </li>
                            <li class="nav-item">
-                              <a class="nav-link" href="contact.html">Contact Us</a>
+                              <a class="nav-link" href="admin_special_offers.php">Special&nbsp;Offers</a>
                            </li>
+                           
+                           <!-- <li class="nav-item">
+                              <a class="nav-link" href="contact.html">Contact&nbsp;Us</a>
+                           </li> -->
                         </ul>
+                        <form class="form-inline" action="includes/logout/logout.inc.php" method="post">
+                           <button class="btn btn-danger ml-2" type="submit">Logout</button>
+                        </form>
                      </div>
                   </nav>
+
                </div>
             </div>
          </div>
@@ -128,7 +133,11 @@ require_once 'includes/dbh.inc.php';
          </div> -->
 
          <!-- Button to trigger the modal -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addActivityServiceModal"> Add Activity Service</button>
+         <!-- <div class="row"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addActivityServiceModal"> Add Activity Service</button></div> -->
+         <div class="container">
+         <div class="center">
+         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addActivityServiceModal"> Add Activity Service</button>
+         </div></div>
 
       <!-- Add Activity Service Modal -->
       <div class="modal fade" id="addActivityServiceModal" tabindex="-1" role="dialog" aria-labelledby="addActivityServiceModalLabel" aria-hidden="true">
@@ -209,9 +218,10 @@ require_once 'includes/dbh.inc.php';
             </div>
          </div>
 
-
-         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addWellnessServiceModal"> Add Wellness Service</button>
-
+      <div class="container">
+      <div class="center">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addWellnessServiceModal"> Add Wellness Service</button>
+      </div></div>
          <!-- Add Wellness Service Modal -->
       <div class="modal fade" id="addWellnessServiceModal" tabindex="-1" role="dialog" aria-labelledby="addWellnessServiceModalLabel" aria-hidden="true">
          <div class="modal-dialog" role="document">
@@ -251,10 +261,10 @@ require_once 'includes/dbh.inc.php';
                               <label for="roomType">Room Type</label>
                               <input type="text" class="form-control" id="roomType" name="roomType" required>
                         </div>
-                        <div class="form-check">
+                        <!-- <div class="form-check">
                               <input type="checkbox" class="form-check-input" id="therapistRequired" name="therapistRequired">
                               <label class="form-check-label" for="therapistRequired">Therapist Required</label>
-                        </div>
+                        </div> -->
                         <div class="form-group">
                               <label for="treatmentType">Treatment Type</label>
                               <input type="text" class="form-control" id="treatmentType" name="treatmentType" required>
@@ -284,10 +294,6 @@ require_once 'includes/dbh.inc.php';
       </div>
 
    </div>
-
-
-
-
    </div>
 
    <div class="culinary_services">
@@ -304,8 +310,10 @@ require_once 'includes/dbh.inc.php';
       </div>
 
       <!-- Button to trigger the modal -->
+      <div class="container">
+      <div class="center">
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCulinaryServiceModal"> Add Culinary Experience</button>
-
+      </div></div>
       <!-- Add Culinary Service Modal -->
       <div class="modal fade" id="addCulinaryServiceModal" tabindex="-1" role="dialog" aria-labelledby="addCulinaryServiceModalLabel" aria-hidden="true">
          <div class="modal-dialog" role="document">
@@ -342,10 +350,10 @@ require_once 'includes/dbh.inc.php';
                         <label for="mealType">Meal Type</label>
                         <input type="text" class="form-control" id="mealType" name="mealType" required>
                      </div>
-                     <div class="form-group">
+                     <!-- <div class="form-group">
                         <label for="specialDietary">Special Dietary</label>
                         <input type="text" class="form-control" id="specialDietary" name="specialDietary" required>
-                     </div>
+                     </div> -->
                      <div class="form-group">
                         <label for="menuOptions">Menu Options</label>
                         <input type="text" class="form-control" id="menuOptions" name="menuOptions" required>
@@ -449,6 +457,7 @@ require_once 'includes/dbh.inc.php';
    <!-- end services -->
 
    <!--  footer -->
+   <!--  footer -->
    <footer>
       <div class="footer">
          <div class="container">
@@ -464,13 +473,15 @@ require_once 'includes/dbh.inc.php';
                <div class="col-md-4">
                   <h3>Menu Link</h3>
                   <ul class="link_menu">
-                     <li><a href="#">Home</a></li>
-                     <li><a href="about.html"> about</a></li>
+                     <li class="active"><a href="#">Home</a></li>
+                     <!-- <li><a href="about.html"> about</a></li> -->
                      <li><a href="admin_room.php">Our Rooms</a></li>
-                     <li><a href="specialOffers.html">Special Offers</a></li>
-                     <li class="active"><a href="admin_services.php">Services</a></li>
-                     <li><a href="contact.html">Contact Us</a></li>
+                     <li><a href="admin_services.php">Services</a></li>
+                     <li><a href="admin_special_offers.html">Special Offers</a></li>
+                     <!-- <li><a href="admin_services.php">Services</a></li> -->
+                     <!-- <li><a href="contact.html">Contact Us</a></li> -->
                   </ul>
+               <!-- </div> -->
                </div>
                <div class="col-md-4">
                   <h3>News letter</h3>
@@ -491,11 +502,13 @@ require_once 'includes/dbh.inc.php';
             <div class="container">
                <div class="row">
                   <div class="col-md-10 offset-md-1">
+
                      <p>
                         © 2019 All Rights Reserved. Design by <a href="https://html.design/"> Free Html Templates</a>
                         <br><br>
                         Distributed by <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
                      </p>
+
                   </div>
                </div>
             </div>
