@@ -1,7 +1,8 @@
 <?php
 
 function get_services_with_types($pdo) {
-    $sql = "SELECT s.ServiceID, s.ServiceName, IF(a.ServiceID IS NOT NULL, 'Activity', IF(w.ServiceID IS NOT NULL, 'Wellness', 'Culinary')) AS ServiceType
+    $sql = "SELECT s.ServiceID, s.ServiceName, IF(a.ServiceID IS NOT NULL, 'Activity', 
+            IF(w.ServiceID IS NOT NULL, 'Wellness', 'Culinary')) AS ServiceType
             FROM service s
             LEFT JOIN activity a ON s.ServiceID = a.ServiceID
             LEFT JOIN wellness w ON s.ServiceID = w.ServiceID
@@ -68,6 +69,13 @@ function check_if_combination_exists($pdo, $roomID, $offerID){
         return true;
     } else return false;
 }
+function delete_combination($pdo, $offerID, $roomID) {
+    $sql = 'DELETE FROM combination WHERE (RoomID = :RoomID and SpecialOfferID = :OfferID)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':RoomID', $roomID);
+    $stmt->bindParam(':OfferID', $offerID);
+    $stmt->execute();
+}
 
 function delete_offer($pdo, $offerID) {
     $sql = 'DELETE FROM special_offer WHERE SpecialOfferID = :OfferID';
@@ -76,12 +84,6 @@ function delete_offer($pdo, $offerID) {
     $stmt->execute();
 }
 
-function delete_combination($pdo, $offerID, $roomID) {
-    $sql = 'DELETE FROM combination WHERE (RoomID = :RoomID and SpecialOfferID = :OfferID)';
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':RoomID', $roomID);
-    $stmt->bindParam(':OfferID', $offerID);
-    $stmt->execute();
-}
+
 
 

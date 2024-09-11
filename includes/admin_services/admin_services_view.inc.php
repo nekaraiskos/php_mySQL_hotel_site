@@ -18,10 +18,13 @@ function display_admin_activity_services($pdo) {
         if (!empty($activity['Image'])) {
             // Use the relative path stored in the database
             $imageSrc = htmlspecialchars($activity['Image']);
-            echo "<figure><img src='" . $imageSrc . "' alt='Activity Image' /></figure>";
+            echo "<figure><img src='" . $imageSrc . "' alt='Activity Image' /></figure>";    
+            // echo "<figure style='margin-right: 20px;'><img src='" . $imageSrc . "' alt='Activity Image' width='500' height='400' style='border-radius: 10px;'/></figure>";
         } else {
             echo '<p>No image available.</p>';
         }
+        echo '</a>';
+        echo '</div>';
 
         echo '<div class="bed_room">';
         echo "<h3>" . htmlspecialchars($activity['ServiceName']) . "</h3>";
@@ -45,7 +48,7 @@ function display_admin_activity_services($pdo) {
         echo '</div>';
         echo '</div>';
         echo '</div>';
-        echo '</div>';
+        // echo '</div>';
 
     }
     echo '</div>';

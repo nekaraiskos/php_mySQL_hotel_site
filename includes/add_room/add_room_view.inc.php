@@ -40,11 +40,10 @@ function display_admin_rooms($pdo) {
             echo 'Price Per Night: ' . htmlspecialchars($room['PricePerNight']) . '&#8364 </p>';
 
             echo '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editRoomModal' . $room['RoomID'] . '">Edit</button> ';
-            // echo '<button type="button" class="btn btn-danger" onclick="deleteRoom(' . $room['RoomID'] . ')">Delete</button>';
-            // echo '<br>';
 
             // Add the Delete button form
-            echo '<form action="includes/delete_room/delete_room.inc.php" method="post" onsubmit="return confirm(\'Are you sure you want to delete this room?\');">';
+            echo '<form action="includes/delete_room/delete_room.inc.php" method="post" 
+                onsubmit="return confirm(\'Are you sure you want to delete this room?\');">';
             echo '<input type="hidden" name="room_id" value="' . htmlspecialchars($room['RoomID']) . '">';
             echo '<button type="submit" class="btn btn-danger">Delete</button>';
             echo '</form>';
@@ -112,10 +111,17 @@ function generate_edit_modal($room) {
                         <div class="form-group">
                             <label for="Image">Room Image</label>
                             <input type="file" id="Image" name="image" class="form-control">
-                            <?php if (!empty($room['Image'])): ?>
-                                <img src="data:image/jpeg;base64,<?php echo base64_encode($room['Image']); ?>" alt="Room Image" class="room-image" style="width: 100px; height: 100px;">
+                            <?php if (!empty($service['Image'])): ?>
+                                <figure><img src="<?php echo htmlspecialchars(string: $room['Image']); ?>" alt="Room Image" style="width: 100px; height: 100px;"></figure>
                             <?php endif; ?>
                         </div>
+                        <!-- <div class="form-group">
+                            <label for="Image">Room Image</label>
+                            <input type="file" id="Image" name="image" class="form-control">
+                            <?php //if (!empty($room['Image'])): ?>
+                                <img src="data:image/jpeg;base64,<?php //echo base64_encode($room['Image']); ?>" alt="Room Image" class="room-image" style="width: 100px; height: 100px;">
+                            <?php //endif; ?>
+                        </div> -->
 
                         <button type="submit" class="btn btn-primary">Save</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

@@ -13,16 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         require_once "../dbh.inc.php"; // Database connection
         require_once "add_room_model.inc.php";
-        require_once "add_room_contr.inc.php";
 
         $errors = [];
-        // Error handling: Check for empty required fields
-        // if (empty($roomName) || empty($pricePerNight) || empty($numOfBeds) || empty($roomType) || empty($capacity) || empty($image)) {
-        //     $_SESSION['error_message'] = 'Please fill in all required fields.';
-        //     header("Location: ../../admin_room.php#addRoomModal"); // Stay on the form page with the modal open
-        //     exit();
-        // }
-
         $imgContent = file_get_contents($image);
 
         // Check if the file is a valid image

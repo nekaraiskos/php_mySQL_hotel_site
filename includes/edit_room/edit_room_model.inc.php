@@ -18,10 +18,11 @@ function edit_room_no_image($pdo, $RoomID, $RoomName, $PricePerNight, $NumOfBeds
     $stmt -> execute();
 }
 
-function edit_room_image($pdo, $RoomID, $RoomName, $PricePerNight, $NumOfBeds, $RoomType, $HasHotTub, $Capacity, $imgContent) {
+function edit_room($pdo, $RoomID, $RoomName, $PricePerNight, $NumOfBeds, $RoomType, $HasHotTub, $Capacity, $imgContent) {
 
     $sql = "UPDATE room 
-            SET RoomName = :RoomName, PricePerNight = :PricePerNight, NumOfBeds = :NumOfBeds, RoomType = :RoomType, HasHotTub = :HasHotTub, Capacity = :Capacity, Image = :ImgContent 
+            SET RoomName = :RoomName, PricePerNight = :PricePerNight, NumOfBeds = :NumOfBeds, 
+            RoomType = :RoomType, HasHotTub = :HasHotTub, Capacity = :Capacity, Image = :ImgContent 
             WHERE RoomID = $RoomID";
 
     $stmt = $pdo->prepare($sql);
@@ -32,7 +33,7 @@ function edit_room_image($pdo, $RoomID, $RoomName, $PricePerNight, $NumOfBeds, $
     $stmt -> bindParam(":RoomType", $RoomType);
     $stmt -> bindParam(":HasHotTub", $HasHotTub);
     $stmt -> bindParam(":Capacity", $Capacity);
-    $stmt->bindParam(":ImgContent", $imgContent, PDO::PARAM_LOB); // Ensure it's treated as a BLOB
+    $stmt->bindParam(":ImgContent", $imgContent);
     
     $stmt -> execute();
 }

@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $roomtype = $_POST["room_type"];
     $hashottub = isset($_POST["has_hot_tub"]) ? 1 : 0;
     $capacity = $_POST["capacity"];
+    $image = $_FILES['image']['tmp_name'];
 
     try {
         require_once '../dbh.inc.php';
@@ -16,46 +17,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         require_once '../check_room_image.php';
 
 
-        // Update Room Image if provided
+        // Handle image upload if a new image is uploaded
         if (!empty($_FILES['image']['tmp_name'])) {
-            $image = $_FILES['image']['tmp_name'];
-            $imgContent = file_get_contents($image);
-            // $uploadOk = check_image($image);
-            $check = getimagesize($image);
-            if($check !== false) {
-                $uploadOk = 1;
-            } else {
-                echo "File is not an image.";
-                $uploadOk = 0;
-            }
-
-            // Optional file size check
-            if ($_FILES["image"]["size"] > 5000000) {
-                echo "Sorry, your file is too large.";
-                $uploadOk = 0;
-            }
-
-            if($uploadOk == 1) {
-                edit_room_image($pdo, $roomid, $roomname, $pricepernight, $numofbeds, $roomtype, $hashottub, $capacity, $imgContent);
-                header("Location: ../../admin_room.php?edit=success");
-                exit();
-            }else {
-                echo "Sorry, your file was not uploaded.";
-                exit();
-            }
-            
+            $imagePath = 'images/' . $_FILES['image']['name'];
         } else {
+            $sql = 'SELECT Image FROM room WHERE RoomID = :RoomID';
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':RoomID', $roomid, PDO::PARAM_INT);
+            $stmt->execute();
 
-            edit_room_no_image($pdo, $roomid, $roomname, $pricepernight, $numofbeds, $roomtype, $hashottub, $capacity);
-            header("Location: ../../admin_room.php?edit=success");
-            exit();
-            // $query = "UPDATE room SET RoomName = ?, PricePerNight = ?, NumOfBeds = ?, RoomType = ?, HasHotTub = ?, Capacity = ? WHERE RoomID = ?";
-            // $stmt = $pdo->prepare($query);
-            // $stmt->execute([$room_name, $price_per_night, $num_of_beds, $room_type, $has_hot_tub, $capacity, $room_id]);
+            $imagePath = $stmt->fetchColumn();
         }
 
-        // header("Location: ../../admin_room.php"); // Redirect back to the admin_room page
-        // exit();
+            
+
+        edit_room($pdo, $roomid, $roomname, $pricepernight, $numofbeds, $roomtype, $hashottub, $capacity, $imagePath);
+        header("Location: ../../admin_room.php?edit=success");
+        exit();
 
     }catch (PDOException $e) {
         die("Query failed: " . $e->getMessage());

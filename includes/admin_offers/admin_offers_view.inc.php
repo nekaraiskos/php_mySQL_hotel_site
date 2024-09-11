@@ -30,10 +30,18 @@ function display_special_offers($pdo) {
             echo '</a>';
             echo '</div>'; // Close offer_img
 
+            $services = get_services_with_types($pdo); // Function to fetch services and types
+            foreach ($services as $service) {
+                if($service['ServiceID'] == $offer['ServiceID']) {
+                    $serviceName = $service['ServiceName'];
+                    break;
+                }
+            }
+
             echo '<div class="bed_room">';
             echo '<h3>' . htmlspecialchars($offer['Description']) . '</h3>';
             echo '<p>Discount: ' . htmlspecialchars($offer['Discount']) . '%</br>';
-            echo '<p>Associated Service ID: ' . htmlspecialchars($offer['ServiceID']) . '</p>';
+            echo '<p>Associated Service: ' . htmlspecialchars($serviceName) . '</p>';
 
             // Add to Room button
             echo '<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addOfferToRoomModal' . $offer['SpecialOfferID'] . '">Add to Room</button>';
